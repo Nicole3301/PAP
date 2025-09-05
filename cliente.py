@@ -2,11 +2,9 @@ class Cliente():
     lista_clientes = []
 
     def __init__(self, id, nome, contacto):
-        self.dados = {
-            'id' : id,
-            'nome' : nome,
-            'contacto' : contacto
-         }
+        self.Id = id 
+        self.Nome = nome
+        self.Contacto = contacto
         
     contador_id = 1
     def adicionar_cliente(self):
@@ -16,7 +14,7 @@ class Cliente():
             nome_cliente = input("Nome: ")
             duplicados = False
             for cliente in Cliente.lista_clientes:
-                if cliente.dados['nome'].lower() == nome_cliente.lower():
+                if cliente.Nome.lower() == nome_cliente.lower():
                     duplicados = True
                     break 
             if duplicados:
@@ -69,9 +67,9 @@ class Cliente():
             print("Não existem clientes para mostrar.")
             return
         for cliente in Cliente.lista_clientes:
-            print(f"ID: {cliente.dados['id']}")
-            print(f"Nome: {cliente.dados['nome']}")
-            print(f"Contacto: {cliente.dados['contacto']}")
+            print(f"ID: {cliente.Id}")
+            print(f"Nome: {cliente.Nome}")
+            print(f"Contacto: {cliente.Contacto}")
             print("-----------------------------------")
 
 

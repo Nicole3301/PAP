@@ -9,12 +9,12 @@ from calendar import Calendar
 class Encomenda():
     lista_encomendas = []
     
-    def __init__(self, id_encomenda, utilizador_login, nome_cliente, data_criação, data_entrega, quantidade, preco_total, estado_encomenda):
+    def __init__(self, id_encomenda, utilizador_login, nome_cliente, data_criacao, data_entrega, quantidade, preco_total, estado_encomenda):
         self.dados_encomenda = {
             'id' : id_encomenda,
             'login' : utilizador_login,
             'nomeCliente' : nome_cliente,
-            'dataCriacao' : data_criação,
+            'dataCriacao' : data_criacao,
             'dataEntrega' : data_entrega,
             'quantidade' : quantidade,
             'precoTotal' : preco_total,
@@ -97,8 +97,8 @@ class Encomenda():
         self.dados_encomenda['data_entrega'] = input("Dia para entregar a encomenda: ")
         
         print("Qual é o tipo de encomenda que quer? ")
-        for i, arranjos in enumerate(Arranjos.lista_arranjos, start=1):
-            print(f"{i}- {arranjos} | limite: {Arranjos.dados_arranjo['limite']}")
+        for i, arranjo in enumerate(Arranjos.lista_arranjos, start=1):
+            print(f"{i}- {arranjo} | limite: {arranjo.dados_arranjo['limite']}")
         while True:
             try:
                 escolha_arranjo = int(input("Escolha o arranjo pelo número: "))
@@ -121,7 +121,7 @@ class Encomenda():
             print(f"ID: {encomenda.dados_encomenda['id']}")
             print(f"Login: {encomenda.dados_encomenda['login']}")
             print(f"Nome do cliente: {encomenda.dados_encomenda['nomeCliente']}")
-            print(f"Data da criação da encomenda: {encomenda.dados_encomenda['dataCriação']}")
+            print(f"Data da criação da encomenda: {encomenda.dados_encomenda['dataCriacao']}")
             print(f"Data para entregar a encomenda: {encomenda.dados_encomenda['dataEntrega']}")
             print(f"Quantidade de produtos: {encomenda.dados_encomenda['quantidade']}")
             print(f"Preço total: {encomenda.dados_encomenda['precoTotal']}")
@@ -133,8 +133,8 @@ class Encomenda():
         
         procurar_encomenda_editar = input("Escreva o nome do cliente que fez a encomenda: ").lower()
         
-        for cliente in Cliente.lista_clientes():
-            if procurar_encomenda_editar == cliente.dados['nome']:
+        for cliente in Cliente.lista_clientes:
+            if procurar_encomenda_editar == cliente.dados['nome'].lower():
                 for i, cliente in enumerate(encomendas_encontradas, start=1):
                     print(f"{i}- ID:{cliente.dados['id']} | Nome: {cliente.dados['nome']} | Contacto: {cliente.dados['contacto']}\n")
                     print("----informações encomenda----\n ")

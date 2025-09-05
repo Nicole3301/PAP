@@ -8,8 +8,8 @@ class Utilizador():
 class Login(Utilizador):
     def __init__(self):
         self.utilizador = {
-            'admin' : 'admin123', 'papel' : 'chefe',
-            'funcionario' : 'funcionario123', 'papel' : 'funcionario'
+            'admin' : 'admin123',
+            'funcionario' : 'funcionario123'
         }
        
        
