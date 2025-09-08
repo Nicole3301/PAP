@@ -1,18 +1,18 @@
 import getpass
 
-class Utilizador():
-    def __init__(self, utilizador, palavra_passe):
-        self.utilizador = utilizador
-        self.palavra_passe = palavra_passe
+class Utilizador(): 
+    def __init__(self, utilizador, palavra_passe, papel):
+        self.Utilizador = utilizador
+        self.Palavra_passe = palavra_passe
+        self.Papel = papel 
 
 class Login(Utilizador):
     def __init__(self):
-        self.utilizador = {
-            'admin' : 'admin123',
-            'funcionario' : 'funcionario123'
-        }
-       
-       
+        self.utilizadores = [
+            Utilizador("admin", "admin123", "Administrador"),
+            Utilizador("funcionario", "func123", "Funcionário")
+            ]
+        
     def verificar_dados(self):
         tentativas = 0
         acesso = False
@@ -21,7 +21,7 @@ class Login(Utilizador):
             palavra_passe = getpass.getpass("Palavra-passe: ")
             #print(f"DEBUG - username: '{username}', palavra-passe: '{palavra_passe}'")
 
-            if username in self.utilizador and palavra_passe == self.utilizador[username]:
+            if username in self.utilizadores and palavra_passe == self.utilizadores(Utilizador):
                 print("Os dados estão corretos. Seja bem-vindo!")
                 acesso = True
                 return {'utilizador' : username}
@@ -38,7 +38,6 @@ login = Login()
 acesso = login.verificar_dados()
 
 if acesso:
-    print(f"O acesso foi permitido ao utilizador: {acesso['utilizador']}")
+    print(f"O acesso foi permitido ao utilizador: {acesso.Utilizador}")
 else:
     print("Acesso negado. O programa vai fechar...")
-

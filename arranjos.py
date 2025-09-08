@@ -5,17 +5,16 @@ class Arranjos():
     lista_arranjos = []
     flores = []
 
-    def __init__(self, id, nome_arranjo, limite):
-        self.dados_arranjo = {
-            'id' : id,
-            'nome' : nome_arranjo,
-            'limite' : limite
-        }
-
+    def __init__(self, id_arranjo, nome_arranjo, limite):
+        self.Id_arranjo = id_arranjo
+        self.Nome_arranjo = nome_arranjo
+        self.Limite = limite
+        
+        
     id_arranjo = 1
     def criar_arranjo(self):
         while True:
-            id = Arranjos.id_arranjo
+            id_arranjo = Arranjos.id_arranjo
             Arranjos.id_arranjo += 1
 
             nome_arranjo = input("Nome do arranjo: ")
@@ -26,7 +25,7 @@ class Arranjos():
                 print("Tem de ser um número inteiro! Tente novamente.")
                 continue
             
-            novo_arranjo = Arranjos(id, nome_arranjo, limite)
+            novo_arranjo = Arranjos(id_arranjo, nome_arranjo, limite)
             Arranjos.lista_arranjos.append(novo_arranjo)
             print(f"O arranjo chamado {nome_arranjo} com o limite {limite}.")
 
@@ -47,9 +46,9 @@ class Arranjos():
             
         for arranjo in Arranjos.lista_arranjos:
             print("------ Lista dos Arranjos ------")
-            print(f"ID: {arranjo.dados_arranjos['id']}")
-            print(f"Nome da flor: {arranjo.dados_arranjos['nome']}")
-            print(f"estilo da flor: {arranjo.dados_arranjos['limite']}")
+            print(f"ID: {arranjo.Id_arranjo}")
+            print(f"Nome do arranjo: {arranjo.Nome_arranjo}")
+            print(f"Limite: {arranjo.Limite}")
             print("--------------------------------")
             
     def editar_arranjo(self):
@@ -57,7 +56,7 @@ class Arranjos():
         nome_arranjo = input("Qual é o nome do arranjo que deseja editar? ").lower()
 
         for arranjo in Arranjos.lista_arranjos:
-            if nome_arranjo in arranjo.dados_arranjo['nome'].lower():
+            if nome_arranjo in arranjo.Nome_arranjo.lower():
                 arranjos_encontrados.append(arranjo)
     
         if not arranjos_encontrados:
@@ -67,7 +66,7 @@ class Arranjos():
         if len(arranjos_encontrados) > 1: 
             print("----Arranjos Encontrados----")
             for i, arranjo in enumerate(arranjos_encontrados, start=1):
-                print(f"{i}- {arranjo.dados_arranjo['nome']} | limite: {arranjo.dados_arranjo['limite']} ")
+                print(f"{i}- {arranjo.Nome_arranjo} | limite: {arranjo.Limite} ")
             escolha_para_editar = int(input("Qual é que deseja editar? "))
             arranjo = arranjos_encontrados[escolha_para_editar -1]
         else:
@@ -82,7 +81,7 @@ class Arranjos():
                 while True: 
                     try:
                         nova_informacao = int(input("Novo limite: "))
-                        arranjo.dados_arranjo['limite'] = nova_informacao
+                        arranjo.Limite= nova_informacao
                         break
                     except ValueError:
                         print("O limite tem de ter um número inteiro! Tente novamente.")
@@ -99,7 +98,7 @@ class Arranjos():
         remover_arranjo = input("Qual é o nome do arranjo que deseja remover: ").lower()
 
         for arranjo in Arranjos.lista_arranjos:
-            if remover_arranjo in arranjo.dados_arranjo['nome'].lower():
+            if remover_arranjo in arranjo.Nome_arranjo.lower():
                 arranjo_encontrado.append(arranjo)
 
         if not arranjo_encontrado:
@@ -109,14 +108,14 @@ class Arranjos():
         if len(arranjo_encontrado) > 1: 
             print("Foram encontrados vários com o mesmo nome: ")
             for i, arranjo in enumerate(arranjo_encontrado, start=1):
-                print(f"{i}- {arranjo.dados_arranjo['nome']} | limite: {arranjo.dados_arranjo['limite']} ")
+                print(f"{i}- ID: {arranjo.Id_arranjo}| Nome do arranjo: {arranjo.Nome_arranjo} | limite de flores: {arranjo.Limite} ")
             escolha_para_remover = int(input("Qual é que deseja remover? "))
             arranjo = arranjo_encontrado[escolha_para_remover -1]
         else:
             arranjo = arranjo_encontrado[0]
 
         Arranjos.lista_arranjos.remove(arranjo)
-        print(f"O arranjo {arranjo.dados_arranjo['nome']} com o limite {arranjo.dados_arranjo['limite']} foi removido com sucesso.")
+        print(f"O arranjo com o ID {arranjo.Id_arranjo}, nome {arranjo.Nome_arranjo} com o limite {arranjo.Limite} foi removido com sucesso.")
 
 
 arranjos = Arranjos("","", "")
