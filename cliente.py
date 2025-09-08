@@ -1,10 +1,10 @@
 class Cliente():
     lista_clientes = []
 
-    def __init__(self, id, nome, contacto):
-        self.Id = id 
-        self.Nome = nome
-        self.Contacto = contacto
+    def __init__(self, id_cliente, nome_cliente, contacto_cliente):
+        self.Id_cliente = id_cliente
+        self.Nome_cliente = nome_cliente
+        self.Contacto_cliente = contacto_cliente
         
     contador_id = 1
     def adicionar_cliente(self):
@@ -79,7 +79,7 @@ class Cliente():
             clientes_encontrados = []
 
             for cliente in Cliente.lista_clientes:
-                if procurar_cliente_desejado in cliente.dados['nome'].lower():
+                if procurar_cliente_desejado in cliente.Nome_cliente.lower():
                     clientes_encontrados.append(cliente)
 
             if not clientes_encontrados:

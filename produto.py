@@ -5,24 +5,22 @@ class Produto():
     subcategorias = ["flores", "plantas"]
 
 
-    def __init__(self, id_produto, nome_produto, categoria_escolhida, subcategoria_escolhida, stock, preco):
-        self.informacoes = {
-            'id' : id_produto,
-            'nome' : nome_produto,
-            'categoria' : categoria_escolhida,
-            'subcategoria' : subcategoria_escolhida,
-            'stock' : stock,
-            'preco' : preco
-        }
+    def __init__(self, id_produto, nome_produto, categoria_escolhida, subcategoria_escolhida, stock_produto, preco_produto):
+        self.Id_produto = id_produto
+        self.Nome_produto = nome_produto
+        self.Categoria_escolhida = categoria_escolhida
+        self.Subcategoria_escolhida = subcategoria_escolhida
+        self.Stock_produto = stock_produto
+        self.Preco_produto = preco_produto
 
 
     contador_id_produto = 1
     def adicionar_produto(self):
         while True:
-            id = Produto.contador_id_produto
+            id_produto = Produto.contador_id_produto
             Produto.contador_id_produto += 1
 
-            nome = input("Nome da flor ou planta: ")
+            nome_produto = input("Nome da flor ou planta: ")
 
             for i, categoria in enumerate(Produto.categorias, start=1):
                 print(f"{i}- {categoria}")
@@ -38,7 +36,7 @@ class Produto():
 
             duplicados = False
             for produto in Produto.lista_produtos:
-                if produto.informacoes['nome'].lower() == nome.lower():
+                if produto.Nome_produto.lower() == nome_produto.lower():
                     duplicados = True
                     break 
             if duplicados:
@@ -51,17 +49,17 @@ class Produto():
                     continue   
             
             try:
-                stock = int(input("Stock: "))
+                stock_produto = int(input("Stock: "))
             except ValueError:
                 print("Tem de ser um número inteiro! Tente novamente.")
                 continue
             try:
-                preco = float(input("Preço: "))
+                preco_produto = float(input("Preço: "))
             except ValueError:
                 print("Tem de ser um número inteiro ou com duas casas decimais (5 ou 5.99)! Tente novamente...")
                 continue
             
-            novo_produto = Produto(id, nome, categoria_escolhida, subcategoria_escolhida, stock, preco)
+            novo_produto = Produto(id_produto, nome_produto, categoria_escolhida, subcategoria_escolhida, stock_produto, preco_produto)
             Produto.lista_produtos.append(novo_produto)
 
         
@@ -91,11 +89,12 @@ class Produto():
         
         for produto in Produto.lista_produtos:
             print("------ Lista dos produtos ------")
-            print(f"ID: {produto.informacoes['id']}")
-            print(f"Nome da flor: {produto.informacoes['nome']}")
-            print(f"estilo da flor: {produto.informacoes['categoria']}")
-            print(f"Stock: {produto.informacoes['stock']}")
-            print(f"Preço: {produto.informacoes['preco']} €")
+            print(f"ID: {produto.Id_produto}")
+            print(f"Nome da flor: {produto.Nome_produto}")
+            print(f"Categoria da flor: {produto.Categoria_escolhida}")
+            print(f"Subcategoria da flor: {produto.Subcategoria_escolhida}")
+            print(f"Stock: {produto.Stock_produto}")
+            print(f"Preço: {produto.Preco_produto} €")
             print("--------------------------------")
 
 
@@ -106,7 +105,7 @@ class Produto():
 
         
         for produto in Produto.lista_produtos:
-            if nome_produto in produto.informacoes['nome'].lower():
+            if nome_produto in produto.Nome_produto.lower():
                 produtos_encontrados.append(produto)
 
         if not produtos_encontrados:
@@ -117,7 +116,7 @@ class Produto():
             produto = produtos_encontrados[0]
         else:
             for i, produto in enumerate(produtos_encontrados, start=1):
-                print(f"{i}- {produto.informacoes['nome']} | categoria: {produto.informacoes['categoria']} | preço: {produto.informacoes['preco']} € | stock: {produto.informacoes['stock']}")
+                print(f"{i}- {produto.Nome_produto} | Categoria: {produto.Categoria_escolhida} | Subcategoria: {produto.Subcategoria_escolhida} | Preço: {produto.Preco_produto}€ | Stock: {produto.Stock_produto}")
             escolha = int(input("O que deseja editar? "))
             produto = produtos_encontrados[escolha-1]
       
@@ -129,12 +128,12 @@ class Produto():
                     print(f"{i}- {categoria}")
                 opcao_categoria = int(input("Escolha a categoria: "))
                 if 1 <= opcao_categoria <= len(Produto.categoria):
-                    produto.informacoes['categoria'] = Produto.categoria[opcao_categoria -1]
+                    produto.Categoria_escolhida = Produto.categoria[opcao_categoria -1]
             elif alterar_informacao == "stock":
                 while True:
                     try:
                         novo_stock = int(input("Novo stock: "))
-                        produto.informacoes['stock'] = novo_stock
+                        produto.Stock_produto = novo_stock
                         break
                     except ValueError:
                         print("O stock tem de ter um número inteiro! Tente novamente.")
@@ -143,7 +142,7 @@ class Produto():
                 while True:
                     try:
                         novo_preco = float(input("Novo preço: "))
-                        produto.informacoes['preco'] = novo_preco
+                        produto.Preco_produto = novo_preco
                         break
                     except ValueError:
                         print("O preço tem de ser ou um número inteiro ou com casas decimais (5 ou 5.99).")            
@@ -161,7 +160,7 @@ class Produto():
         remover_produto = input("Escreva o nome da flor que deseja remover: ").lower()
 
         for produto in Produto.lista_produtos:
-            if remover_produto in produto.informacoes['nome'].lower():
+            if remover_produto in produto.Nome_produto.lower():
                 produto_encontrado.append(produto)
 
         if not produto_encontrado:
@@ -171,19 +170,19 @@ class Produto():
         if len(produto_encontrado) > 1:
             print("Foram encontrados vários produtos com o mesmo nome: ")
             for i, produto in enumerate(produto_encontrado, start=1):
-                print(f"{i}- {produto.informacoes['nome']} | categoria: {produto.informacoes['categoria']} | preço: {produto.informacoes['preco']} € | stock: {produto.informacoes['stock']}")
+                print(f"{i}- {produto.informacoes['nome']} | categoria: {produto.Categoria_escolhida} | subcategoria: {produto.Subcategoria_escolhida} preço: {produto.Preco_produto} € | stock: {produto.Stock_produto}")
             escolha_remover = int(input("O que deseja remover? "))
             produto = produto_encontrado[escolha_remover -1]
         else:
             produto = produto_encontrado[0]
 
         Produto.lista_produtos.remove(produto)
-        print(f"O produto {produto.informacoes['nome']} da categoria {produto.informacoes['categoria']} foi removido com sucesso.")
+        print(f"O produto {produto.Nome_produto} da categoria {produto.Categoria_escolhida} e da subcategoria {produto.Subcategoria_escollhida}  foi removido com sucesso.")
 
      
     def diminiuir_stock(self, quantidade):
-        if self.informacoes['stock'] >= quantidade:
-            self.informacoes['stock'] -= quantidade
+        if self.Stock_produto >= quantidade:
+            self.Stock_produto -= quantidade
             return True
         else:
             return False

@@ -2,12 +2,11 @@ class Extras():
     lista_extras = []
     
     def __init__(self, id_extras, nome_extras, preco_extras, stock_extras):
-        self.dados_extras = {
-            'id' : id_extras,
-            'nome' : nome_extras, 
-            'preco' : preco_extras, 
-            'stock' : stock_extras   
-        } 
+        self.Id_extras = id_extras
+        self.Nome_extras = nome_extras
+        self.Preco_extras = preco_extras
+        self.Stock_extras = stock_extras
+        
         
     contador_id_extras = 1
     def adicionar_extras(self):
@@ -18,7 +17,7 @@ class Extras():
             nome_extras = input("Nome: ")
             duplicados = False
             for extra in Extras.lista_extras:
-                if extra.dados_extras['nome'].lower() == nome_extras.lower():
+                if extra.Nome_extras.lower() == nome_extras.lower():
                     duplicados = True
                     break 
             if duplicados:
@@ -68,10 +67,10 @@ class Extras():
             
         for extra in Extras.lista_extras:
             print("------ Lista dos Extras ------")
-            print(f"ID: {extra.dados_extras['id']}")
-            print(f"Nome: {extra.dados_extras['nome']}")
-            print(f"Preço: {extra.dados_extras['preco']} €")
-            print(f"Stock: {extra.dados_extras['stock']} ")
+            print(f"ID: {extra.Id_extras}")
+            print(f"Nome: {extra.Nome_extras}")
+            print(f"Preço: {extra.Preco_extras} €")
+            print(f"Stock: {extra.Stock_extras} ")
             print("--------------------------------")
             
             
@@ -80,7 +79,7 @@ class Extras():
         procurar_extra = input("Qual é o nome do extra que deseja editar? ").lower() 
         
         for extra in Extras.lista_extras:
-           if procurar_extra in extra.dados_extras['nome'].lower():
+           if procurar_extra in extra.Nome_extras.lower():
               extras_encontrados.append(extra)    
 
         if not extras_encontrados:
@@ -92,7 +91,7 @@ class Extras():
         else:
             print("----Extras Encontrados----")
             for i, extra in enumerate(extras_encontrados, start=1):
-                print(f"{i}- {extra.dados_extras['nome']} | preço: {extra.dados_extras['preco']} € | stock: {extra.dados_extras['stock']}")
+                print(f"{i}- {extra.Nome_extras} | preço: {extra.Preco_extras} € | stock: {extra.Stock_extras}")
             while True:
                 try:
                     escolha_editar = int(input("Qual é que deseja editar? "))
@@ -108,12 +107,12 @@ class Extras():
         if alterar_informacao_extra in ['nome', 'preco', 'preço', 'stock']:
             if alterar_informacao_extra == "nome":
                 nova_informacao_extra = input("Novo nome: ").lower()
-                extra.dados_extras['nome'] = nova_informacao_extra
+                extra.Nome_extras = nova_informacao_extra
             elif alterar_informacao_extra in ["preco", "preço"]:
                 while True: 
                     try:
                         nova_informacao_extra = float(input("Novo preço: "))
-                        extra.dados_extras['preco'] = nova_informacao_extra
+                        extra.Preco_extras = nova_informacao_extra
                         break
                     except ValueError:
                         print("Tem de ser um número com duas casas decimais, tente novamente!")
@@ -122,7 +121,7 @@ class Extras():
                 while True:
                     try:
                         nova_informacao_extra = int(input("Novo stock: "))
-                        extra.dados_extras['stock'] = nova_informacao_extra
+                        extra.Stock_extras = nova_informacao_extra
                         break
                     except ValueError:
                         print("O stock tem de ser um número inteiro, tente novamente!")
@@ -141,7 +140,7 @@ class Extras():
         
         
         for extra in Extras.lista_extras:
-            if remover_extra in extra.dados_extras['nome'].lower():
+            if remover_extra in extra.Nome_extras.lower():
                 extras_encontrados.append(extra)
                 
         if not extras_encontrados:
@@ -151,7 +150,7 @@ class Extras():
         if len(extras_encontrados) > 1:
             print("----Extras Encontrados----")
             for i, extra in enumerate(extras_encontrados, start=1):
-                print(f"{i}- {extra.dados_extras['nome']} | preço: {extra.dados_extras['preco']} € | stock: {extra.dados_extras['stock']}")
+                print(f"{i}- {extra.Nome_extras} | preço: {extra.Preco_extras} € | stock: {extra.Stock_extras}")
             while True:
                 try:
                     escolha_remover_extra = int(input("Escolha o extra que deseja remover: "))
@@ -161,7 +160,7 @@ class Extras():
                     continue
                 
         Extras.lista_extras.remove(extra)
-        print(f"O extra {extra.dados_extras['nome']}, preço {extra.dados_extras['preco']}€ e com o stock {extra.dados_extras['stock']} foi removido com sucesso.")
+        print(f"O extra {extra.Nome_extras}, preço {extra.Preco_extras}€ e com o stock {extra.Stock_extras} foi removido com sucesso.")
         
 extras = Extras("", "", "", "") 
 extras.adicionar_extras()
