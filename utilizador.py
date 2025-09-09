@@ -6,12 +6,13 @@ class Utilizador():
         self.Palavra_passe = palavra_passe
         self.Papel = papel 
 
+
 class Login(Utilizador):
     def __init__(self):
         self.utilizadores = [
             Utilizador("admin", "admin123", "Administrador"),
             Utilizador("funcionario", "func123", "Funcionário")
-            ]
+        ]
         
     def verificar_dados(self):
         tentativas = 0
@@ -19,12 +20,12 @@ class Login(Utilizador):
         while tentativas < 3 and not acesso:
             username = input("Utilizador: ")
             palavra_passe = getpass.getpass("Palavra-passe: ")
-            #print(f"DEBUG - username: '{username}', palavra-passe: '{palavra_passe}'")
 
-            if username in self.utilizadores and palavra_passe == self.utilizadores(Utilizador):
-                print("Os dados estão corretos. Seja bem-vindo!")
-                acesso = True
-                return {'utilizador' : username}
+            for utilizador in self.utilizadores:
+                if utilizador.Utilizador == username and utilizador.Palavra_passe == palavra_passe:
+                    print("Os dados estão corretos. Seja bem-vindo!")
+                    acesso = True
+                    return utilizador
             else:
                 tentativas += 1
                 tentativas_restantes = 3 - tentativas 

@@ -50,12 +50,12 @@ class Produto():
             
             try:
                 stock_produto = int(input("Stock: "))
-            except ValueError:
+            except:
                 print("Tem de ser um número inteiro! Tente novamente.")
                 continue
             try:
                 preco_produto = float(input("Preço: "))
-            except ValueError:
+            except:
                 print("Tem de ser um número inteiro ou com duas casas decimais (5 ou 5.99)! Tente novamente...")
                 continue
             
@@ -135,7 +135,7 @@ class Produto():
                         novo_stock = int(input("Novo stock: "))
                         produto.Stock_produto = novo_stock
                         break
-                    except ValueError:
+                    except:
                         print("O stock tem de ter um número inteiro! Tente novamente.")
                         continue
             elif alterar_informacao in ["preco", "preço"]:
@@ -144,7 +144,7 @@ class Produto():
                         novo_preco = float(input("Novo preço: "))
                         produto.Preco_produto = novo_preco
                         break
-                    except ValueError:
+                    except:
                         print("O preço tem de ser ou um número inteiro ou com casas decimais (5 ou 5.99).")            
             else:
                 print("Opção inválida! Tente novamente.")

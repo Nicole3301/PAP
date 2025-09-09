@@ -21,7 +21,7 @@ class Arranjos():
             
             try:
                 limite = int(input("Limite de flores: "))
-            except ValueError:
+            except:
                 print("Tem de ser um número inteiro! Tente novamente.")
                 continue
             
@@ -83,7 +83,7 @@ class Arranjos():
                         nova_informacao = int(input("Novo limite: "))
                         arranjo.Limite= nova_informacao
                         break
-                    except ValueError:
+                    except:
                         print("O limite tem de ter um número inteiro! Tente novamente.")
                         continue
             else:

@@ -33,7 +33,7 @@ class Extras():
                 try:
                     preco_extras = float(input("Preço: "))
                     break
-                except ValueError:
+                except:
                     print("Tem de ser um número duas casas decimais, tente novamente!")
                     continue
                 
@@ -41,7 +41,7 @@ class Extras():
                 try:
                     stock_extras = int(input("Stock: "))
                     break
-                except ValueError:                    
+                except:                    
                     print("Tem de ser um número inteiro, tente novamente!") 
                     continue
                 
@@ -97,7 +97,7 @@ class Extras():
                     escolha_editar = int(input("Qual é que deseja editar? "))
                     extra = extras_encontrados[escolha_editar-1]
                     break
-                except ValueError:
+                except:
                     print("Tem de ser um número inteiro, tente novamente!")
                     continue
         
@@ -114,7 +114,7 @@ class Extras():
                         nova_informacao_extra = float(input("Novo preço: "))
                         extra.Preco_extras = nova_informacao_extra
                         break
-                    except ValueError:
+                    except:
                         print("Tem de ser um número com duas casas decimais, tente novamente!")
                         continue
             elif alterar_informacao_extra == "stock":
@@ -123,7 +123,7 @@ class Extras():
                         nova_informacao_extra = int(input("Novo stock: "))
                         extra.Stock_extras = nova_informacao_extra
                         break
-                    except ValueError:
+                    except:
                         print("O stock tem de ser um número inteiro, tente novamente!")
                         continue
             else:
@@ -155,7 +155,7 @@ class Extras():
                 try:
                     escolha_remover_extra = int(input("Escolha o extra que deseja remover: "))
                     extra = extras_encontrados[escolha_remover_extra-1]
-                except ValueError:
+                except:
                     print("Escolha inválida tem de ser um número inteiro, tente novamente!")
                     continue
                 

@@ -30,7 +30,7 @@ class Cliente():
                 try:
                     contacto_cliente = int(input("Contacto: "))
                     break
-                except ValueError:
+                except:
                     print("O contacto deve ter números inteiros! Tente novamente.")
                     continue
 
@@ -103,7 +103,7 @@ class Cliente():
                 if alterar_campo == "contacto":
                     try:
                         novo_dado = int(novo_dado)
-                    except ValueError:
+                    except:
                         print("O contacto deve ter números inteiros.")
                         return
 
