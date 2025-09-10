@@ -1,17 +1,16 @@
 import getpass
 
 class Utilizador(): 
-    def __init__(self, utilizador, palavra_passe, papel):
-        self.Utilizador = utilizador
+    def __init__(self,id_utilizador, nome, palavra_passe, role):
+        self.Id_utilizador = id_utilizador
+        self.Nome = nome
         self.Palavra_passe = palavra_passe
-        self.Papel = papel 
-
+        self.role = role
 
 class Login(Utilizador):
     def __init__(self):
         self.utilizadores = [
-            Utilizador("admin", "admin123", "Administrador"),
-            Utilizador("funcionario", "func123", "Funcionário")
+            Utilizador("admin", "admin123", "Administrador")
         ]
         
     def verificar_dados(self):

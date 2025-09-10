@@ -1,10 +1,15 @@
 class Cliente():
     lista_clientes = []
+    
+    lista_genero = ["feminino", "masculino"]
 
-    def __init__(self, id_cliente, nome_cliente, contacto_cliente):
+    def __init__(self, id_cliente, nome_cliente, contacto_cliente, email, morada, genero):
         self.Id_cliente = id_cliente
         self.Nome_cliente = nome_cliente
         self.Contacto_cliente = contacto_cliente
+        self.Email = email
+        self.Morada = morada
+        self.Genero = genero
         
     contador_id = 1
     def adicionar_cliente(self):
@@ -33,6 +38,22 @@ class Cliente():
                 except:
                     print("O contacto deve ter números inteiros! Tente novamente.")
                     continue
+                
+            email = input("Email: ")
+            
+            morada = input("Morada: ")
+            
+            for i, genero in enumerate(Cliente.lista_genero, start=1):
+                print(f"{i}- {genero}")
+            while True: 
+                try:
+                    escolha_genero = int(input("Insira o número do gênero: "))
+                    break
+                except:
+                    print("Tem de ser um número inteiro, tente novamente!")
+                    continue
+            genero = Cliente.lista_genero[escolha_genero-1]
+            
 
                 
             novo_cliente = Cliente(id_cliente, nome_cliente, contacto_cliente)

@@ -118,6 +118,6 @@ class Arranjos():
         print(f"O arranjo com o ID {arranjo.Id_arranjo}, nome {arranjo.Nome_arranjo} com o limite {arranjo.Limite} foi removido com sucesso.")
 
 
-arranjos = Arranjos("","", "")
+arranjos = Arranjos("", "", "", "")
 arranjos.criar_arranjo()
 arranjos.editar_arranjo()
