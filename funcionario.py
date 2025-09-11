@@ -154,3 +154,7 @@ class Funcionario():
         
         Funcionario.lista_funcionarios.remove(funcionario)
         print(f"O funcionário com o id {Funcionario.Id_funcionario} com o nome {Funcionario.Nome_funcionario}  e a função {Funcionario.Funcao} foi removido com sucesso.")
+        
+funcionario = Funcionario("", "", "")
+        
+        

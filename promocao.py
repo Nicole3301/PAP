@@ -1,3 +1,5 @@
+
+
 class Promocao():
     def __init__(self, id_promocao, data_inicio, data_fim):
         self.Id_promocao = id_promocao
@@ -5,6 +7,14 @@ class Promocao():
         self.Data_fim = data_fim
         self.incremento = None
         self.percentagem = 15
+    
+    contador_id_promocao = 1    
+    def adicionar_promocoes(self):
+        id_promocao = Promocao.contador_id_promocao
+        Promocao.contador_id_promocao += 1
+        
+        
+        
         
         
         
