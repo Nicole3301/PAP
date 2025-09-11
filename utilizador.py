@@ -10,7 +10,7 @@ class Utilizador():
 class Login(Utilizador):
     def __init__(self):
         self.utilizadores = [
-            Utilizador("admin", "admin123", "Administrador")
+            Utilizador("","admin", "admin123", "Administrador")
         ]
         
     def verificar_dados(self):
@@ -21,7 +21,7 @@ class Login(Utilizador):
             palavra_passe = getpass.getpass("Palavra-passe: ")
 
             for utilizador in self.utilizadores:
-                if utilizador.Utilizador == username and utilizador.Palavra_passe == palavra_passe:
+                if utilizador.Nome == username and utilizador.Palavra_passe == palavra_passe:
                     print("Os dados estão corretos. Seja bem-vindo!")
                     acesso = True
                     return utilizador
@@ -38,6 +38,6 @@ login = Login()
 acesso = login.verificar_dados()
 
 if acesso:
-    print(f"O acesso foi permitido ao utilizador: {acesso.Utilizador}")
+    print(f"O acesso foi permitido ao utilizador: {acesso.Nome}")
 else:
     print("Acesso negado. O programa vai fechar...")

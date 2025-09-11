@@ -68,5 +68,89 @@ class Funcionario():
             print(f"Nome: {funcionario.Nome_funcionario}")
             print(f"Função: {funcionario.Funcao}")
             print("-----------------------------------")
-
             
+            
+    def editar_dados_funcionario(self):
+        funcionario_editar = input("Nome do funcionário: ").lower()
+        funcionarios_encontrados = []
+        
+        for funcionario in Funcionario.lista_funcionarios:
+            if funcionario_editar in Funcionario.lista_funcionarios:
+                funcionarios_encontrados.append(funcionario)
+        
+        if not funcionarios_encontrados:
+            print("Nenhum funcionário foi encontrado.")
+            return
+        
+
+        if len(funcionarios_encontrados) > 1:
+            for i, funcionario in enumerate(funcionarios_encontrados, start=1):
+                print(f"{i}- {funcionario.Nome_funcionario} | Função: {funcionario.Funcao}")
+            escolha_funcionario = int(input("Insira o número do funcionário que deseja editar? "))
+            funcionario = funcionarios_encontrados[escolha_funcionario-1]
+        else:
+            funcionario = funcionarios_encontrados[0]
+                
+        
+        alterar_campo_funcionario = input("Deseja editar o Nome ou a Função? ").lower()
+        if alterar_campo_funcionario == "nome":
+            while True:
+                novo_campo = input("Novo nome do funcionário: ").lower()
+                funcionarios_duplicados = False
+                if funcionarios_duplicados:
+                    opcao = input("Já existe um funcionário com esse nome deseja adicionar mesmo assim? (s/n) ")
+                    if opcao == "s":
+                        self.adicionar_funcionario
+                    elif opcao == "n":
+                        break
+                    else:
+                        print("Opção inválida, tente novamente!")
+                        return
+            Funcionario.Nome_funcionario = novo_campo
+        elif alterar_campo_funcionario in ["funcao", "função", "funçao", "funcão"]:
+            novo_campo = input("Nova função: ").lower()
+            Funcionario.Funcao = novo_campo
+        else:
+            print("Opção inválida, tente novamente!")
+            return
+        
+        print("Os dados foram atualizados!")
+        
+        
+        pergunta = input("Deseja ver os dados que foram atualizados? (s/n) ").lower()
+            
+        if pergunta == "s":
+            self.mostrar_dados_funcionario()
+        elif pergunta == "n":
+            return    
+        else:
+            print("Escolha inválida. Tente novamente.")
+            
+    def remover_funcionario(self):
+        nome_funcionario_remover = input("Qual é o nome do funcionário que deseja remover? ").lower()
+        lista_funcionarios_encontrados = []
+        
+        for funcionario in Funcionario.lista_funcionarios:
+            if nome_funcionario_remover == Funcionario.lista_funcionarios:
+                lista_funcionarios_encontrados.append(funcionario)
+        
+        if not lista_funcionarios_encontrados:
+            print("Nenhum funcionário foi encontrado.")
+            return
+        
+        if len(lista_funcionarios_encontrados) > 1:
+            for i, funcionario in enumerate(lista_funcionarios_encontrados, start=1):
+                print(f"{i}- {funcionario.Nome_funcionario} | Função: {funcionario.Funcao}")
+            while True:
+                try:
+                    escolha_funcionario_remover = int(input("Insira o número do funcionário que deseja remover: "))
+                    break
+                except:
+                    print("Tem de ser um número inteiro, tente novamente!")
+                    return
+            funcionario = lista_funcionarios_encontrados(escolha_funcionario_remover-1)
+        else:
+            funcionario = lista_funcionarios_encontrados[0]
+        
+        Funcionario.lista_funcionarios.remove(funcionario)
+        print(f"O funcionário com o id {Funcionario.Id_funcionario} com o nome {Funcionario.Nome_funcionario}  e a função {Funcionario.Funcao} foi removido com sucesso.")

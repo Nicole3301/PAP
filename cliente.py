@@ -16,28 +16,20 @@ class Cliente():
         while True: 
             id_cliente = Cliente.contador_id 
             Cliente.contador_id += 1
+            
             nome_cliente = input("Nome: ")
-            duplicados = False
-            for cliente in Cliente.lista_clientes:
-                if cliente.Nome.lower() == nome_cliente.lower():
-                    duplicados = True
-                    break 
-            if duplicados:
-                opcao = input("Já existe um cliente com esse nome deseja adicionar mesmo assim? s/n ")
-                if opcao == "n":
-                    print("Cliente não adicionado, tente outro nome.")
-                    continue
-                elif opcao != "s":
-                    print("Escreva uma opção válida!")
-                    continue
 
-            while True:
-                try:
-                    contacto_cliente = int(input("Contacto: "))
-                    break
-                except:
-                    print("O contacto deve ter números inteiros! Tente novamente.")
-                    continue
+            validar_contacto=True
+            
+            while validar_contacto:
+                
+                contacto_cliente = input("Contacto: ")
+                    
+                if len(contacto_cliente) == 9:
+                    contacto_cliente = int(contacto_cliente)
+                    validar_contacto = False
+                else:
+                    print("O contacto deve ter números inteiros! Tente novamente.")    
                 
             email = input("Email: ")
             
@@ -88,9 +80,12 @@ class Cliente():
             print("Não existem clientes para mostrar.")
             return
         for cliente in Cliente.lista_clientes:
-            print(f"ID: {cliente.Id}")
-            print(f"Nome: {cliente.Nome}")
-            print(f"Contacto: {cliente.Contacto}")
+            print(f"ID: {Cliente.Id}")
+            print(f"Nome: {Cliente.Nome}")
+            print(f"Contacto: {Cliente.Contacto}")
+            print(f"email: {Cliente.Email}")
+            print(f"Morada: {Cliente.Morada}")
+            print(f"Género: {cliente.Genero}")
             print("-----------------------------------")
 
 
@@ -109,33 +104,44 @@ class Cliente():
 
             if len(clientes_encontrados) > 1:
                 for i, cliente in enumerate(clientes_encontrados, start=1):
-                    print(f"{i}- id: {cliente.dados['id']} | nome: {cliente.dados['nome']} | contacto: {cliente.dados['contacto']}")
+                    print(f"{i}- id: {Cliente.Id_cliente} | nome: {Cliente.Nome_cliente} | contacto: {Cliente.Contacto_cliente}")
                 escolha = int(input("Qual é que deseja editar? "))
                 cliente = clientes_encontrados[escolha-1]
             else:
                 cliente = clientes_encontrados[0]
 
 
-            alterar_campo = input(f"Qual campo deseja alterar do cliente chamado {cliente.dados['nome']}? nome/contacto:")
-            if alterar_campo in ['nome', 'contacto']:
-                novo_dado = input(f"Novo {alterar_campo}: ")
-                cliente.dados[alterar_campo] = novo_dado
-            
-                if alterar_campo == "contacto":
+            alterar_campo = input(f"Qual campo deseja alterar do cliente chamado {Cliente.Nome_cliente}? nome/contacto/email/morada:")
+            if alterar_campo == "nome":
+                while True:
+                    novo_dado_cliente = input(f"Novo Nome: ").lower()
+                    funcionarios_duplicados = False
+                    if funcionarios_duplicados:
+                        opcao = input("Já existe um cliente com esse nome deseja adicionar mesmo assim? (s/n) ")
+                        if opcao == "s":
+                            self.adicionar_cliente
+                        elif opcao == "n":
+                            break
+                        else:
+                            print("Opção inválida, tente novamente!")
+                            return
+                Cliente.Nome_cliente = novo_dado_cliente
+            elif alterar_campo == "contacto":
+                while True:
                     try:
-                        novo_dado = int(novo_dado)
+                        novo_dado_cliente = int(input("Novo contacto: "))
+                        Cliente.Contacto_cliente = novo_dado_cliente
                     except:
                         print("O contacto deve ter números inteiros.")
                         return
-
-                cliente.dados[alterar_campo] = novo_dado    
-                print("Os dados foram atualizados!")
+            
             else:
                 print("Campo inválido. tente novamente")
                 continue
+            
+            print("Os dados foram atualizados!")
 
             pergunta = input("Deseja ver os dados que foram atualizados? (s/n) ").lower()
-            
             if pergunta == "s":
                 self.mostrar_todos_clientes()
             elif pergunta == "n":
@@ -149,7 +155,7 @@ class Cliente():
         lista_clientes_encontrados = []
 
         for cliente in Cliente.lista_clientes:
-            if nome_cliente_remover in cliente.dados['nome'].lower():
+            if nome_cliente_remover in cliente.Nome_funcionario.lower():
                 lista_clientes_encontrados.append(cliente)
 
         if not lista_clientes_encontrados:
@@ -158,7 +164,7 @@ class Cliente():
 
         if len(lista_clientes_encontrados) > 1:
             for i, cliente in enumerate(lista_clientes_encontrados, start=1):
-                print(f"{i}- id: {cliente.dados['id']} | nome: {cliente.dados['nome']} | contacto: {cliente.dados['contacto']}")
+                print(f"{i}- id: {Cliente.Id_funcionario} | nome: {Cliente.Nome_cliente} | contacto: {Cliente.Contacto_cliente}")
             escolha = int(input("Qual deseja remover? "))
             cliente = lista_clientes_encontrados[escolha-1]
         else:
@@ -166,7 +172,7 @@ class Cliente():
         
 
         Cliente.lista_clientes.remove(cliente)
-        print(f"O cliente com o id {cliente.dados['id']} com o nome {cliente.dados['nome']} foi removido com sucesso.")
+        print(f"O cliente com o id {Cliente.Id_cliente} com o nome {Cliente.Nome_cliente} foi removido com sucesso.")
 
 
 cliente = Cliente("", "", "")
