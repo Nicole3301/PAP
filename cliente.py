@@ -18,14 +18,7 @@ class Cliente():
             Cliente.contador_id += 1
             
             nome_cliente = input("Nome: ")
-            for cliente in Cliente.lista_clientes:
-                if self.Nome_cliente != None and self.Nome_cliente == nome_cliente:
-                    for i, cliente in enumerate(Cliente.lista_clientes, start=1):
-                        print(f"{i}- {cliente.Nome_cliente} | contacto: {cliente.Contacto_cliente} | email: {cliente.Email} | morada: {cliente.Morada} | género: {cliente.Genero}")
-                else:
-                    print("")
-
-
+            
             validar_contacto=True
             while validar_contacto:
                 
@@ -35,7 +28,8 @@ class Cliente():
                     contacto_cliente = int(contacto_cliente)
                     validar_contacto = False
                 else:
-                    print("O contacto deve ter números inteiros! Tente novamente.")    
+                    print("O contacto deve ter números inteiros no máximo 9! Tente novamente.")   
+                    continue 
                 
             email = input("Email: ")
             
@@ -48,7 +42,7 @@ class Cliente():
                     escolha_genero = int(input("Insira o número do gênero: "))
                     break
                 except:
-                    print("Tem de ser um número inteiro, tente novamente!")
+                    print("A escolha do gênero tem de ser com números inteiros, tente novamente!")
                     continue
             genero = cliente.lista_genero[escolha_genero-1]
             
@@ -79,7 +73,7 @@ class Cliente():
                 else: 
                     print("Opção inválida! Use 's' ou 'n'. ")
                 
-    def consultar_dados_cliente_especifico(self):
+    
         
 
     def mostrar_todos_clientes(self):
@@ -87,12 +81,12 @@ class Cliente():
             print("Não existem clientes para mostrar.")
             return
         for cliente in Cliente.lista_clientes:
-            print(f"ID: {cliente.Id}")
-            print(f"Nome: {cliente.Nome}")
-            print(f"Contacto: {cliente.Contacto}")
-            print(f"email: {cliente.Email}")
-            print(f"Morada: {cliente.Morada}")
-            print(f"Género: {cliente.Genero}")
+            print(f"ID: {self.Id}")
+            print(f"Nome: {self.Nome}")
+            print(f"Contacto: {self.Contacto}")
+            print(f"email: {self.Email}")
+            print(f"Morada: {self.Morada}")
+            print(f"Género: {self.Genero}")
             print("-----------------------------------")
 
 
@@ -162,10 +156,48 @@ class Cliente():
         lista_clientes_encontrados = []
         
         if remover_cliente in ['nome', 'contacto', 'email']:
-            if remover_cliente == "nome":
-                for i, cliente in enumerate(Cliente.lista_clientes, start=1):
+            for cliente in Cliente.lista_clientes:
+                if remover_cliente is None:
+                    return
+                else:
+                    for i, cliente in enumerate(Cliente.lista_clientes, start=1):
+                        print(f"{i}- {cliente.Nome_cliente} | contacto: {cliente.Contacto_cliente} | email: {cliente.Email} | morada: {cliente.Morada} | género: {cliente.Genero}")
+                    while True:
+                        try:
+                            escolha_cliente_remover = int(input("Insira o número do cliente que deseja remover: "))
+                            cliente = cliente.Nome_cliente[escolha_cliente_remover -1]
+                            break
+                        except: 
+                            print("Tem de inserir um número inteiro, tente novamente!")
+                            continue
+                        
+            for cliente in Cliente.lista_clientes:
+                if self.Nome_cliente != None and self.Nome_cliente == "nome":
+                    for i, cliente in enumerate(Cliente.lista_clientes, start=1):
+                        print(f"{i}- {cliente.Nome_cliente} | contacto: {cliente.Contacto_cliente} | email: {cliente.Email} | morada: {cliente.Morada} | género: {cliente.Genero}")
+                    while True:
+                        try:
+                            escolha_cliente_remover = int(input("Insira o número do cliente que deseja remover: "))
+                            cliente = cliente.Nome_cliente[escolha_cliente_remover -1]
+                            break
+                        except: 
+                            print("Tem de inserir um número inteiro, tente novamente!")
+                            continue
+                elif self.Contacto_cliente != None and self.Contacto_cliente == "contacto":
+                    for i, cliente in enumerate(Cliente.lista_clientes, start=1):
+                        print(f"{i}- {cliente.Nome_cliente} | contacto: {cliente.Contacto_cliente} | email: {cliente.Email} | morada: {cliente.Morada} | género: {cliente.Genero}")
+                    while True:
+                        try:
+                            escolha_cliente_remover = int(input("Insira o número do cliente que deseja remover: "))
+                            cliente = cliente.Contacto_cliente[escolha_cliente_remover -1]   
+                            break
+                        except: 
+                            print("Tem de inserir um número inteiro, tente novamente!")
+                            continue
                     
-
+                    
+            
+        
         for cliente in Cliente.lista_clientes:
             if remover_cliente in cliente.Nome_funcionario.lower():
                 lista_clientes_encontrados.append(cliente)
@@ -187,7 +219,7 @@ class Cliente():
         print(f"O cliente com o id {cliente.Id_cliente} com o nome {cliente.Nome_cliente} foi removido com sucesso.")
 
 
-cliente = Cliente("", "", "", "")
+cliente = Cliente("", "", "", "", "", "")
 cliente.adicionar_cliente()
 cliente.mostrar_todos_clientes()
 cliente.editar_dados_cliente()

@@ -10,4 +10,5 @@ class Fatura():
         id_venda = Fatura.contador_id_venda
         Fatura.contador_id_venda += 1 
         
-        
+    
+fatura = Fatura("", "")

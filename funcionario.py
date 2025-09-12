@@ -12,24 +12,8 @@ class Funcionario():
         id_funcionario = Funcionario.contador_id_funcionario
         Funcionario.contador_id_funcionario +=1
         
-        while True:
-            nome_funcionario = input("Nome do funcionário: ").lower()
-            funcionarios_duplicados = False 
-            for funcionario in Funcionario.lista_funcionarios:
-                if funcionario.Nome_funcionario.lower() == nome_funcionario.lower():
-                    funcionarios_duplicados = True
-                    break  
-            if funcionarios_duplicados:
-                opcao = input("Já existe um funcionário com esse nome deseja adicionar mesmo assim? (s/n) ")
-                if opcao == "s":
-                    self.adicionar_funcionario
-                elif opcao == "n":
-                    break
-                else:
-                    print("Opção inválida, tente novamente!")
-                    continue
-                
-                
+        nome_funcionario = input("Nome do funcionário: ").lower()
+                   
         funcao = input("Função: ").lower()
         
         novo_funcionario = (id_funcionario, nome_funcionario, funcao)
@@ -39,7 +23,7 @@ class Funcionario():
             ver_dados_funcionario = str(input("Deseja ver os dados do funcionário que adicionou? (s/n) ")).lower()
             
             if ver_dados_funcionario == "s":
-                novo_funcionario.mostrar_dados_funcionario()
+                self.mostrar_dados_funcionario()
             elif ver_dados_funcionario == "n":
                 break
             else:
@@ -50,7 +34,8 @@ class Funcionario():
             while True:
                 criar_outro_funcionario = str(input("Deseja criar outro funcionário? (s/n) ")).lower()     
                 if criar_outro_funcionario == "s":
-                    self.adicionar_funcionario
+                    self.adicionar_funcionario()
+                    break
                 elif criar_outro_funcionario == "n":
                     break
                 else:
@@ -64,14 +49,14 @@ class Funcionario():
             return
         for funcionario in Funcionario.lista_funcionarios:
             print("---- Lista de Funcionários ----")
-            print(f"ID: {funcionario.Id_funcionario}")
-            print(f"Nome: {funcionario.Nome_funcionario}")
-            print(f"Função: {funcionario.Funcao}")
+            print(f"ID: {self.Id_funcionario}")
+            print(f"Nome: {self.Nome_funcionario}")
+            print(f"Função: {self.Funcao}")
             print("-----------------------------------")
             
             
     def editar_dados_funcionario(self):
-        funcionario_editar = input("Nome do funcionário: ").lower()
+        funcionario_editar = input("Escreva o nome do funcionário que quer editar: ").lower()
         funcionarios_encontrados = []
         
         for funcionario in Funcionario.lista_funcionarios:
@@ -156,5 +141,8 @@ class Funcionario():
         print(f"O funcionário com o id {Funcionario.Id_funcionario} com o nome {Funcionario.Nome_funcionario}  e a função {Funcionario.Funcao} foi removido com sucesso.")
         
 funcionario = Funcionario("", "", "")
+funcionario.adicionar_funcionario()
+funcionario.editar_dados_funcionario()
+
         
         

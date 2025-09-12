@@ -19,6 +19,8 @@ class Encomenda():
         Encomenda.contador_id_encomenda += 1
         
         
+encomenda = Encomenda("", "", "", "")
+
       
         
     
