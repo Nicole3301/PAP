@@ -80,13 +80,14 @@ class Cliente():
         if not Cliente.lista_clientes:
             print("Não existem clientes para mostrar.")
             return
+        print("-------- Lista de Clientes ---------")
         for cliente in Cliente.lista_clientes:
-            print(f"ID: {self.Id}")
-            print(f"Nome: {self.Nome}")
-            print(f"Contacto: {self.Contacto}")
-            print(f"email: {self.Email}")
-            print(f"Morada: {self.Morada}")
-            print(f"Género: {self.Genero}")
+            print(f"ID: {cliente.Id_cliente}")
+            print(f"Nome: {cliente.Nome_cliente}")
+            print(f"Contacto: {cliente.Contacto_cliente}")
+            print(f"email: {cliente.Email}")
+            print(f"Morada: {cliente.Morada}")
+            print(f"Género: {cliente.Genero}")
             print("-----------------------------------")
 
 
@@ -112,7 +113,7 @@ class Cliente():
                 cliente = clientes_encontrados[0]
 
 
-            alterar_campo = input(f"Qual campo deseja alterar do cliente chamado {cliente.Nome_cliente}? nome/contacto/email/morada:")
+            alterar_campo = input(f"Qual campo deseja alterar do cliente chamado {cliente.Nome_cliente} (nome/contacto/email/morada)? ").lower()
             if alterar_campo == "nome":
                 while True:
                     novo_dado_cliente = input(f"Novo Nome: ").lower()
@@ -126,6 +127,7 @@ class Cliente():
                         else:
                             print("Opção inválida, tente novamente!")
                             return
+                    break
                 cliente.Nome_cliente = novo_dado_cliente
             elif alterar_campo == "contacto":
                 while True:
@@ -135,13 +137,18 @@ class Cliente():
                     except:
                         print("O contacto deve ter números inteiros.")
                         return
-            
+            elif alterar_campo == "morada":
+                novo_dado_cliente = input("Nova morada: ")
+                cliente.Morada = novo_dado_cliente
+            elif alterar_campo == "email":
+                novo_dado_cliente = input("Novo email: ")
+                cliente.Email = novo_dado_cliente
             else:
                 print("Campo inválido. tente novamente")
-                continue
+                return
             
             print("Os dados foram atualizados!")
-
+            
             pergunta = input("Deseja ver os dados que foram atualizados? (s/n) ").lower()
             if pergunta == "s":
                 self.mostrar_todos_clientes()
@@ -149,13 +156,15 @@ class Cliente():
                 return    
             else:
                 print("Escolha inválida. Tente novamente.")
+                return
 
+            break
 
     def remover_cliente(self):
         remover_cliente = input("Deseja procurar pelo Nome/contacto/email? ").lower()
         lista_clientes_encontrados = []
         
-        if remover_cliente in ['nome', 'contacto', 'email']:
+        if remover_cliente in ['nome', 'contacto', 'email', 'morada']:
             for cliente in Cliente.lista_clientes:
                 if remover_cliente is None:
                     return
