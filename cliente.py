@@ -138,11 +138,37 @@ class Cliente():
                         print("O contacto deve ter números inteiros.")
                         return
             elif alterar_campo == "morada":
-                novo_dado_cliente = input("Nova morada: ")
-                cliente.Morada = novo_dado_cliente
+                while True:
+                    morada_antiga = cliente.Morada
+                    novo_dado_cliente = input("Nova morada: ")
+                    if novo_dado_cliente == morada_antiga:
+                        print("Escreveu a mesma morada, escreva outra se quer editar.")
+                        editar_novamente = ("Deseja voltar a editar? (s/n) ").lower() 
+                        if editar_novamente == "s":  
+                            break
+                        elif editar_novamente == "n":
+                            return
+                        else: 
+                            print("Opção inválida! Use 's' ou 'n'. ")
+                    else:
+                        cliente.Morada = novo_dado_cliente
+                        break 
             elif alterar_campo == "email":
-                novo_dado_cliente = input("Novo email: ")
-                cliente.Email = novo_dado_cliente
+                while True:
+                    email_antigo = cliente.Email
+                    novo_dado_cliente = input("Novo email: ")
+                    if novo_dado_cliente == email_antigo:
+                        print("Voltou a escrever o mesmo email se quer editar tem de escrever outro email.")
+                        editar_novamente = ("Deseja voltar a editar? (s/n) ").lower()
+                        if editar_novamente == "s":  
+                            break
+                        elif editar_novamente == "n":
+                            return
+                        else: 
+                            print("Opção inválida! Use 's' ou 'n'. ")
+                    else:
+                        cliente.Email = novo_dado_cliente
+                        break
             else:
                 print("Campo inválido. tente novamente")
                 return
@@ -157,7 +183,6 @@ class Cliente():
             else:
                 print("Escolha inválida. Tente novamente.")
                 return
-
             break
 
     def remover_cliente(self):
@@ -204,11 +229,8 @@ class Cliente():
                             print("Tem de inserir um número inteiro, tente novamente!")
                             continue
                     
-                    
-            
-        
-        for cliente in Cliente.lista_clientes:
-            if remover_cliente in cliente.Nome_funcionario.lower():
+        for cliente in cliente.lista_clientes:
+            if remover_cliente in cliente.Nome_cliente.lower():
                 lista_clientes_encontrados.append(cliente)
 
         if not lista_clientes_encontrados:
@@ -217,14 +239,14 @@ class Cliente():
 
         if len(lista_clientes_encontrados) > 1:
             for i, cliente in enumerate(lista_clientes_encontrados, start=1):
-                print(f"{i}- id: {cliente.Id_funcionario} | nome: {cliente.Nome_cliente} | contacto: {cliente.Contacto_cliente}")
+                print(f"{i}- id: {cliente.Id_cliente} | nome: {cliente.Nome_cliente} | contacto: {cliente.Contacto_cliente}")
             escolha = int(input("Qual deseja remover? "))
             cliente = lista_clientes_encontrados[escolha-1]
         else:
             cliente = lista_clientes_encontrados[0]
         
 
-        Cliente.lista_clientes.remove(cliente)
+        cliente.lista_clientes.remove(cliente)
         print(f"O cliente com o id {cliente.Id_cliente} com o nome {cliente.Nome_cliente} foi removido com sucesso.")
 
 
@@ -232,5 +254,6 @@ cliente = Cliente("", "", "", "", "", "")
 cliente.adicionar_cliente()
 cliente.mostrar_todos_clientes()
 cliente.editar_dados_cliente()
+cliente.remover_cliente()
 
 
