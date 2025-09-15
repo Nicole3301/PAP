@@ -1,11 +1,11 @@
 import getpass
 
 class Utilizador(): 
-    def __init__(self,id_utilizador, nome, palavra_passe, role):
+    def __init__(self,id_utilizador, nome, palavra_passe, funcao_util):
         self.Id_utilizador = id_utilizador
         self.Nome = nome
         self.Palavra_passe = palavra_passe
-        self.role = role
+        self.funcao_util = funcao_util
 
 class Login(Utilizador):
     def __init__(self):

@@ -246,7 +246,7 @@ class Cliente():
             cliente = lista_clientes_encontrados[0]
         
 
-        cliente.lista_clientes.remove(cliente)
+        Cliente.lista_clientes.remove(cliente)
         print(f"O cliente com o id {cliente.Id_cliente} com o nome {cliente.Nome_cliente} foi removido com sucesso.")
 
 

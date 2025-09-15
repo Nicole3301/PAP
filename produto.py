@@ -72,25 +72,25 @@ class Produto():
         novo_produto = Produto(id_produto, nome_produto, categoria_escolhida, informacao_produto, preco_produto, stock_produto, subcategoria_escolhida = None)
         Produto.lista_produtos.append(novo_produto)
 
-        
-        ver_produto = input("Deseja ver as informações do produto que adicionou? s/n ") 
+        while True:
+            ver_produto = input("Deseja ver as informações do produto que adicionou? (s/n) ") 
 
-        if ver_produto == "s":
-            novo_produto.mostrar_todos_produtos()
-        elif ver_produto == "n":
-            return
-        else:
-            print("Opção inválida! Use 's' ou 'n'.")
-            return
+            if ver_produto == "s":
+                novo_produto.mostrar_todos_produtos()
+            elif ver_produto == "n":
+                break
+            else:
+                print("Opção inválida! Use 's' ou 'n'.")
+            
+        while True:
+            adicionar_novamente = input("Gostava de adicionar outro produto? (s/n) ").lower()
 
-        adicionar_novamente = input("Gostava de adicionar outro produto? s/n ").lower()
-
-        if adicionar_novamente == "s":  
-            self.adicionar_produto()
-        elif adicionar_novamente == "n":
-            return
-        else: 
-            print("Opção inválida! Use 's' ou 'n'. ")
+            if adicionar_novamente == "s":  
+                self.adicionar_produto()
+            elif adicionar_novamente == "n":
+                break
+            else: 
+                print("Opção inválida! Use 's' ou 'n'. ")
 
 
 
@@ -127,7 +127,9 @@ class Produto():
 
         if not produtos_encontrados:
             print("Nenhum produto foi encontrado.")
-            return
+            return 
+        
+        
             
         if len(produtos_encontrados) == 1:
             produto = produtos_encontrados[0]
@@ -147,7 +149,7 @@ class Produto():
 
         if alterar_informacao in ['categoria', 'stock', 'preço', 'preco']:
             if alterar_informacao == "categoria":
-                for i, categoria in enumerate(Produto.categoria, start=1):
+                for i, categoria in enumerate(Produto.categorias, start=1):
                     print(f"{i}- {categoria}")
                 while True:
                     try:   
@@ -181,12 +183,22 @@ class Produto():
 
             print("Os dados foram atualizados!")    
             return
-                
+        
+        
+        editar_novamente = input("Gostava de editar outro produto? (s/n) ").lower()
+
+        if editar_novamente == "s":  
+            self.editar_produto()
+        elif editar_novamente == "n":
+            return
+        else: 
+            print("Opção inválida! Use 's' ou 'n'. ")
+
 
 
     def remover_produto(self):
         produto_encontrado = []
-        remover_produto = input("Escreva o nome da flor que deseja remover: ").lower()
+        remover_produto = input("Escreva o nome do produto que deseja remover: ").lower()
 
         for produto in Produto.lista_produtos:
             if remover_produto in produto.Nome_produto.lower():
@@ -212,7 +224,12 @@ class Produto():
             produto = produto_encontrado[0]
 
         Produto.lista_produtos.remove(produto)
-        print(f"O produto {produto.Nome_produto} da categoria {produto.Categoria_escolhida} e da subcategoria {produto.Subcategoria_escollhida}  foi removido com sucesso.")
+        if produto.Subcategoria_escolhida is None:
+            print(f"O produto {produto.Nome_produto} da categoria {produto.Categoria_escolhida} foi removido com sucesso.")
+        else:
+            print(f"O produto {produto.Nome_produto} da categoria {produto.Categoria_escolhida} e com a subcategoria {produto.Subcategoria_escolhida} foi removido com sucesso.")
+        
+        
 
     """  
     def diminiuir_stock(self, quantidade):
