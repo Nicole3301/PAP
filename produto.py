@@ -5,12 +5,13 @@ class Produto():
     subcategorias = ["natural", "artificial"]
 
 
-    def __init__(self, id_produto, nome_produto, categoria_escolhida, informacao_produto, stock_produto, subcategoria_escolhida = None):
+    def __init__(self, id_produto, nome_produto, categoria_escolhida, informacao_produto, preco_produto, stock_produto, subcategoria_escolhida = None):
         self.Id_produto = id_produto
         self.Nome_produto = nome_produto
         self.Categoria_escolhida = categoria_escolhida
-        self.Subcategoria_escolhida = subcategoria_escolhida
+        self.Subcategoria_escolhida = None
         self.Informacao_produto = informacao_produto
+        self.Preco_produto = preco_produto
         self.Stock_produto = stock_produto
 
 
@@ -20,6 +21,19 @@ class Produto():
         Produto.contador_id_produto += 1
 
         nome_produto = input("Nome do Produto: ")
+        duplicados = False
+        for produto in Produto.lista_produtos:
+            if produto.Nome_produto.lower() == nome_produto.lower():
+                duplicados = True
+                break 
+        if duplicados:
+            opcao = input("Já existe um produto com esse nome deseja adicionar mesmo assim? s/n ")
+            if opcao == "n":
+                print("Produto não adicionado, tente outro nome.")
+                return
+            elif opcao != "s":
+                print("Escreva uma opção válida! Tente novamente...")
+                return   
 
         for i, categoria in enumerate(Produto.categorias, start=1):
             print(f"{i}- {categoria}")
@@ -33,60 +47,50 @@ class Produto():
             escolha_subcategoria = int(input("Escolha a subcategoria: "))
             subcategoria_escolhida = Produto.subcategorias[escolha_subcategoria-1]
         elif pergunta_se_quer_subcategoria == "n":
-            return
+            subcategoria_escolhida = None
+        else:
+            print("Opção inválida, tente novamente.")
 
-        duplicados = False
-        for produto in Produto.lista_produtos:
-            if produto.Nome_produto.lower() == nome_produto.lower():
-                duplicados = True
-                break 
-            if duplicados:
-                opcao = input("Já existe um produto com esse nome deseja adicionar mesmo assim? s/n ")
-                if opcao == "n":
-                    print("Produto não adicionado, tente outro nome.")
-                    continue
-                elif opcao != "s":
-                    print("Escreva uma opção válida! Tente novamente...")
-                    continue   
-                
-            while True:
-                try:
-                    stock_produto = int(input("Stock: "))
-                    break
-                except:
-                    print("Tem de ser um número inteiro! Tente novamente.")
-                    continue
-                
-            while True:
-                try:
-                    preco_produto = float(input("Preço: "))
-                    break
-                except:
-                    print("Tem de ser um número inteiro ou com duas casas decimais (5 ou 5.99)! Tente novamente...")
-                    continue
+        informacao_produto = input("Informação do produto: ").lower()
+        
+        while True:
+            try:
+                stock_produto = int(input("Stock: "))
+                break
+            except:
+                print("Tem de ser um número inteiro! Tente novamente.")
+                continue
+              
+        while True:
+            try:
+                preco_produto = float(input("Preço: "))
+                break
+            except:
+                print("Tem de ser um número inteiro ou com duas casas decimais (5 ou 5.99)! Tente novamente...")
+                continue
             
-            novo_produto = Produto(id_produto, nome_produto, categoria_escolhida, stock_produto, preco_produto, subcategoria_escolhida = None)
-            Produto.lista_produtos.append(novo_produto)
+        novo_produto = Produto(id_produto, nome_produto, categoria_escolhida, informacao_produto, preco_produto, stock_produto, subcategoria_escolhida = None)
+        Produto.lista_produtos.append(novo_produto)
 
         
-            ver_produto = input("Deseja ver as informações do produto que adicionou? s/n ") 
+        ver_produto = input("Deseja ver as informações do produto que adicionou? s/n ") 
 
-            if ver_produto == "s":
-                novo_produto.mostrar_todos_produtos()
-            elif ver_produto == "n":
-                break
-            else:
-                print("Opção inválida! Use 's' ou 'n'.")
-                return
+        if ver_produto == "s":
+            novo_produto.mostrar_todos_produtos()
+        elif ver_produto == "n":
+            return
+        else:
+            print("Opção inválida! Use 's' ou 'n'.")
+            return
 
-            adicionar_novamente = input("Gostava de adicionar outro produto? s/n ").lower()
+        adicionar_novamente = input("Gostava de adicionar outro produto? s/n ").lower()
 
-            if adicionar_novamente == "s":  
-                continue
-            elif adicionar_novamente == "n":
-                break
-            else: 
-                print("Opção inválida! Use 's' ou 'n'. ")
+        if adicionar_novamente == "s":  
+            self.adicionar_produto()
+        elif adicionar_novamente == "n":
+            return
+        else: 
+            print("Opção inválida! Use 's' ou 'n'. ")
 
 
 
@@ -100,10 +104,15 @@ class Produto():
             print(f"ID: {produto.Id_produto}")
             print(f"Nome da flor: {produto.Nome_produto}")
             print(f"Categoria da flor: {produto.Categoria_escolhida}")
-            print(f"Subcategoria da flor: {produto.Subcategoria_escolhida}")
-            print(f"Stock: {produto.Stock_produto}")
+            if produto.Subcategoria_escolhida is None:
+                print("Não tem subcategoria.")
+            else:
+                print(f"Subcategoria da flor: {produto.Subcategoria_escolhida}")
+            print(f"Informação do produto: {produto.Informacao_produto}")
             print(f"Preço: {produto.Preco_produto} €")
+            print(f"Stock: {produto.Stock_produto}")
             print("--------------------------------")
+        
 
 
 
