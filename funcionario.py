@@ -23,7 +23,7 @@ class Funcionario():
             ver_dados_funcionario = str(input("Deseja ver os dados do funcionário que adicionou? (s/n) ")).lower()
             
             if ver_dados_funcionario == "s":
-                self.mostrar_dados_funcionario()
+                self.mostrar_funcionarios()
             elif ver_dados_funcionario == "n":
                 break
             else:
@@ -43,17 +43,18 @@ class Funcionario():
                     continue
                     
                 
-    def mostrar_dados_funcionario(self):
+    def mostrar_funcionarios(self):
         if not Funcionario.lista_funcionarios:
-            print("Não existe funcionários para mostrar.")
+            print("Não existem clientes para mostrar.")
             return
+        print("-------- Lista de Funcionários ---------")
         for funcionario in Funcionario.lista_funcionarios:
-            print("---- Lista de Funcionários ----")
-            print(f"ID: {self.Id_funcionario}")
-            print(f"Nome: {self.Nome_funcionario}")
-            print(f"Função: {self.Funcao}")
+            print(f"ID: {funcionario.Id_funcionario}")
+            print(f"Nome: {funcionario.Nome_funcionario}")
+            print(f"Função: {funcionario.Funcao}")
             print("-----------------------------------")
-            
+
+    
             
     def editar_dados_funcionario(self):
         funcionario_editar = input("Escreva o nome do funcionário que quer editar: ").lower()

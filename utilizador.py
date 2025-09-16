@@ -1,4 +1,5 @@
 import getpass
+from funcionario import Funcionario
 
 class Utilizador(): 
     def __init__(self,id_utilizador, nome, palavra_passe, funcao_util):
@@ -10,7 +11,7 @@ class Utilizador():
 class Login(Utilizador):
     def __init__(self):
         self.utilizadores = [
-            Utilizador("","admin", "admin123", "Administrador")
+            Utilizador(1,"admin", "admin123", "Administrador")
         ]
         
     def verificar_dados(self):
@@ -19,6 +20,8 @@ class Login(Utilizador):
         while tentativas < 3 and not acesso:
             username = input("Utilizador: ")
             palavra_passe = getpass.getpass("Palavra-passe: ")
+            
+            todos_util = self.utilizadores + Funcionario.lista_funcionarios
 
             for utilizador in self.utilizadores:
                 if utilizador.Nome == username and utilizador.Palavra_passe == palavra_passe:
