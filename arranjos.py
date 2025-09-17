@@ -120,4 +120,4 @@ class Arranjos():
 
 arranjos = Arranjos("", "", "", "")
 arranjos.criar_arranjo()
-arranjos.editar_arranjo()
+arranjos.remover_arranjo()

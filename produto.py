@@ -3,13 +3,15 @@ class Produto():
     lista_produtos = []
     categorias = ["flores", "plantas", "extras"]
     subcategorias = ["natural", "artificial"]
+    
 
 
-    def __init__(self, id_produto, nome_produto, categoria_escolhida, informacao_produto, preco_produto, stock_produto, subcategoria_escolhida = None):
+    def __init__(self, id_produto, nome_produto, categoria_escolhida, cor_produto, informacao_produto, preco_produto, stock_produto, subcategoria_escolhida = None):
         self.Id_produto = id_produto
         self.Nome_produto = nome_produto
         self.Categoria_escolhida = categoria_escolhida
         self.Subcategoria_escolhida = None
+        self.Cor_produto = cor_produto
         self.Informacao_produto = informacao_produto
         self.Preco_produto = preco_produto
         self.Stock_produto = stock_produto
@@ -50,8 +52,24 @@ class Produto():
             subcategoria_escolhida = None
         else:
             print("Opção inválida, tente novamente.")
-
+            
+            
+        cor_produto = input("Cor do produto: ").lower()
+        """
+        for i, informacao in enumerate(Produto.informacao_produto, start=1):
+            print(f"{i}- {informacao}")
+        while True: 
+                try:
+                    escolha_informacao = int(input("Informação do produto: "))
+                    informacao_escolhida = Produto.informacao_produto[escolha_informacao-1]
+                    break
+                except ValueError:
+                    print("A escolha do gênero tem de ser com números inteiros, tente novamente!")
+                    continue
+        """
+        
         informacao_produto = input("Informação do produto: ").lower()
+        
         
         while True:
             try:
@@ -69,7 +87,7 @@ class Produto():
                 print("Tem de ser um número inteiro ou com duas casas decimais (5 ou 5.99)! Tente novamente...")
                 continue
             
-        novo_produto = Produto(id_produto, nome_produto, categoria_escolhida, informacao_produto, preco_produto, stock_produto, subcategoria_escolhida = None)
+        novo_produto = Produto(id_produto, nome_produto, categoria_escolhida, cor_produto, informacao_produto, preco_produto, stock_produto, subcategoria_escolhida = None)
         Produto.lista_produtos.append(novo_produto)
 
         while True:
@@ -104,10 +122,10 @@ class Produto():
             print(f"ID: {produto.Id_produto}")
             print(f"Nome da flor: {produto.Nome_produto}")
             print(f"Categoria da flor: {produto.Categoria_escolhida}")
-            if produto.Subcategoria_escolhida is None:
-                print("Não tem subcategoria.")
-            else:
+            if produto.Subcategoria_escolhida is not None:
                 print(f"Subcategoria da flor: {produto.Subcategoria_escolhida}")
+            else:
+                print("Não tem subcategoria.")
             print(f"Informação do produto: {produto.Informacao_produto}")
             print(f"Preço: {produto.Preco_produto} €")
             print(f"Stock: {produto.Stock_produto}")
@@ -240,7 +258,7 @@ class Produto():
             return False
     """
 
-produto1 = Produto("", "", "", "", "", "")
+produto1 = Produto("", "", "", "", "", "", "")
 produto1.adicionar_produto()
 produto1.editar_produto()
 produto1.mostrar_todos_produtos()

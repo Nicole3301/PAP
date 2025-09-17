@@ -107,7 +107,25 @@ class Cliente():
 
             if not clientes_encontrados:
                 print("Nenhum cliente foi encontrado.")
-                return
+                pesquisar_novamente = input("Deseja voltar a pesquisar? (s/n) ").lower()
+                tentativas = 0
+                while tentativas < 3:
+                    if pesquisar_novamente == "s":
+                        break
+                    elif pesquisar_novamente == "n":
+                        adicionar_novo_cliente = (f"Deseja criar um novo cliente? (s/n) ").lower()
+                        if adicionar_novo_cliente  == "s":
+                            self.adicionar_cliente()
+                        elif adicionar_novo_cliente == "n":
+                            break
+                        else:
+                            print("Opção inválida, tente novamente.")
+                            continue
+                    else:
+                        tentativas += 1
+                
+                    
+                    
 
             if len(clientes_encontrados) > 1:
                 for i, cliente in enumerate(clientes_encontrados, start=1):
@@ -152,15 +170,13 @@ class Cliente():
                         if editar_novamente == "s":  
                             continue
                         elif editar_novamente == "n":
-                            return
+                            break
                         else: 
                             print("Opção inválida! Use 's' ou 'n'. ")
-                    else:
-                        print("Opção inválida! Tem de ser 's' ou 'n'.")
-                        continue
-                    
+                            continue
+                        
                 cliente.Contacto_cliente = novo_dado_cliente
-                    break 
+                break 
                   
             elif alterar_campo == "morada":
                 while True:
@@ -211,9 +227,10 @@ class Cliente():
             break
 
     def remover_cliente(self):
-        remover_cliente = input("Deseja procurar pelo Nome/contacto/email? ").lower()
+        remover_cliente = input("Escreva o nome do cliente que deseja remover:  ").lower()
         lista_clientes_encontrados = []
-                    
+        
+               
         for cliente in Cliente.lista_clientes:
             if remover_cliente in cliente.Nome_cliente.lower():
                 lista_clientes_encontrados.append(cliente)
@@ -237,8 +254,7 @@ class Cliente():
 
 cliente = Cliente("", "", "", "", "", "")
 cliente.adicionar_cliente()
-cliente.mostrar_todos_clientes()
 cliente.editar_dados_cliente()
-cliente.remover_cliente()
+
 
 
