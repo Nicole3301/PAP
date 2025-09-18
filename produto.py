@@ -6,11 +6,11 @@ class Produto():
     
 
 
-    def __init__(self, id_produto, nome_produto, categoria_escolhida, cor_produto, informacao_produto, preco_produto, stock_produto, subcategoria_escolhida = None):
+    def __init__(self, id_produto, nome_produto, categoria_escolhida, subcategoria_escolhida, cor_produto, informacao_produto, preco_produto, stock_produto):
         self.Id_produto = id_produto
         self.Nome_produto = nome_produto
         self.Categoria_escolhida = categoria_escolhida
-        self.Subcategoria_escolhida = None
+        self.Subcategoria_escolhida = subcategoria_escolhida
         self.Cor_produto = cor_produto
         self.Informacao_produto = informacao_produto
         self.Preco_produto = preco_produto
@@ -46,31 +46,22 @@ class Produto():
         if pergunta_se_quer_subcategoria == "s":
             for i, subcategoria in enumerate(Produto.subcategorias, start=1):
                 print(f"{i}- {subcategoria}")
-            escolha_subcategoria = int(input("Escolha a subcategoria: "))
-            subcategoria_escolhida = Produto.subcategorias[escolha_subcategoria-1]
-        elif pergunta_se_quer_subcategoria == "n":
-            subcategoria_escolhida = None
-        else:
-            print("Opção inválida, tente novamente.")
+            while True:
+                try:
+                    
+                    escolha_subcategoria = int(input("Escolha a subcategoria: "))
+                    if 1 <= escolha_subcategoria <= len(Produto.subcategorias):
+                        produto.Subcategoria_escolhida = Produto.subcategorias[escolha_subcategoria-1]
+                    elif pergunta_se_quer_subcategoria == "n":
+                        novo_produto.Subcategoria_escolhida = None
+                    else:
+                        print("Opção inválida, tente novamente.")
             
             
         cor_produto = input("Cor do produto: ").lower()
-        """
-        for i, informacao in enumerate(Produto.informacao_produto, start=1):
-            print(f"{i}- {informacao}")
-        while True: 
-                try:
-                    escolha_informacao = int(input("Informação do produto: "))
-                    informacao_escolhida = Produto.informacao_produto[escolha_informacao-1]
-                    break
-                except ValueError:
-                    print("A escolha do gênero tem de ser com números inteiros, tente novamente!")
-                    continue
-        """
         
         informacao_produto = input("Informação do produto: ").lower()
-        
-        
+     
         while True:
             try:
                 stock_produto = int(input("Stock: "))
@@ -87,18 +78,31 @@ class Produto():
                 print("Tem de ser um número inteiro ou com duas casas decimais (5 ou 5.99)! Tente novamente...")
                 continue
             
-        novo_produto = Produto(id_produto, nome_produto, categoria_escolhida, cor_produto, informacao_produto, preco_produto, stock_produto, subcategoria_escolhida = None)
+        novo_produto = Produto(id_produto, nome_produto, categoria_escolhida, None, cor_produto, informacao_produto, preco_produto, stock_produto)
         Produto.lista_produtos.append(novo_produto)
 
         while True:
-            ver_produto = input("Deseja ver as informações do produto que adicionou? (s/n) ") 
+                ver_dados = str(input("Deseja ver os dados do produto? (s/n) ")).lower()
 
-            if ver_produto == "s":
-                novo_produto.mostrar_todos_produtos()
-            elif ver_produto == "n":
-                break
-            else:
-                print("Opção inválida! Use 's' ou 'n'.")
+                if ver_dados == "s":
+                    print("---- Dados do Produto ----")
+                    print(f"ID: {novo_produto.Id_produto}")
+                    print(f"Nome: {novo_produto.Nome_produto}")
+                    print(f"Categoria: {novo_produto.Categoria_escolhida}")
+                    if novo_produto.Subcategoria_escolhida:
+                        print(f"Subcategoria da flor: {novo_produto.Subcategoria_escolhida}")
+                    else:
+                        print("Não tem subcategoria.")
+                    print(f"Cor do produto: {novo_produto.Cor_produto}")
+                    print(f"Informação do produto: {novo_produto.Informacao_produto}")
+                    print(f"Preço: {novo_produto.Preco_produto}")
+                    print(f"Stock: {novo_produto.Stock_produto}")
+                    print("-----------------------------------")
+                    break
+                elif ver_dados == "n":
+                    break
+                else:
+                    print("Opção inválida! Use 's' ou 'n'. ")
             
         while True:
             adicionar_novamente = input("Gostava de adicionar outro produto? (s/n) ").lower()
@@ -109,9 +113,8 @@ class Produto():
                 break
             else: 
                 print("Opção inválida! Use 's' ou 'n'. ")
-
-
-
+                
+                
     def mostrar_todos_produtos(self):
         if not Produto.lista_produtos:
             print("Não existem produtos para mostrar.")
@@ -122,7 +125,7 @@ class Produto():
             print(f"ID: {produto.Id_produto}")
             print(f"Nome da flor: {produto.Nome_produto}")
             print(f"Categoria da flor: {produto.Categoria_escolhida}")
-            if produto.Subcategoria_escolhida is not None:
+            if produto.Subcategoria_escolhida:
                 print(f"Subcategoria da flor: {produto.Subcategoria_escolhida}")
             else:
                 print("Não tem subcategoria.")
@@ -130,9 +133,6 @@ class Produto():
             print(f"Preço: {produto.Preco_produto} €")
             print(f"Stock: {produto.Stock_produto}")
             print("--------------------------------")
-        
-
-
 
     def editar_produto(self):
         nome_produto = input("Escreva o nome do produto que deseja editar: ").lower()
@@ -148,7 +148,6 @@ class Produto():
             return 
         
         
-            
         if len(produtos_encontrados) == 1:
             produto = produtos_encontrados[0]
         else:
@@ -156,55 +155,85 @@ class Produto():
                 print(f"{i}- {produto.Nome_produto} | Categoria: {produto.Categoria_escolhida} | Subcategoria: {produto.Subcategoria_escolhida} | Preço: {produto.Preco_produto}€ | Stock: {produto.Stock_produto}")
             while True:
                 try:
-                    escolha = int(input("O que deseja editar? "))
+                    escolha = int(input("Insira o número do produto que deseja editar? "))
+                    produto = produtos_encontrados[escolha-1]
                     break
-                except:
+                except ValueError:
                     print("Tem de ser um número inteiro, tente novamente!")
                     continue
-            produto = produtos_encontrados[escolha-1]
+            
       
-        alterar_informacao = input("Deseja alterar a categoria, stock ou preço? ").lower()
-
-        if alterar_informacao in ['categoria', 'stock', 'preço', 'preco']:
-            if alterar_informacao == "categoria":
-                for i, categoria in enumerate(Produto.categorias, start=1):
-                    print(f"{i}- {categoria}")
-                while True:
-                    try:   
-                        opcao_categoria = int(input("Escolha a categoria: "))
-                        break
-                    except:
-                        print("Tem de ser um número inteiro, tente novamente!")
-                        continue
-                if 1 <= opcao_categoria <= len(Produto.categoria):
-                    produto.Categoria_escolhida = Produto.categoria[opcao_categoria -1]
-            elif alterar_informacao == "stock":
-                while True:
-                    try:
-                        novo_stock = int(input("Novo stock: "))
-                        produto.Stock_produto = novo_stock
-                        break
-                    except:
-                        print("O stock tem de ter um número inteiro! Tente novamente.")
-                        continue
-            elif alterar_informacao in ["preco", "preço"]:
-                while True:
-                    try:
-                        novo_preco = float(input("Novo preço: "))
-                        produto.Preco_produto = novo_preco
-                        break
-                    except:
-                        print("O preço tem de ser ou um número inteiro ou com casas decimais (5 ou 5.99).")            
-            else:
-                print("Opção inválida! Tente novamente.")
-                return
-
-            print("Os dados foram atualizados!")    
+        alterar_informacao = input("Deseja alterar o nome, categoria, subcategoria, stock ou preço? ").lower()
+        if alterar_informacao == "nome":
+            novo_dado = input("Novo nome: ").lower()
+            produto.Nome_produto = novo_dado
             return
-        
-        
-        editar_novamente = input("Gostava de editar outro produto? (s/n) ").lower()
+        elif alterar_informacao == "categoria":
+            for i, categoria in enumerate(Produto.categorias, start=1):
+                print(f"{i}- {categoria}")
+            while True:
+                try:   
+                    novo_dado = int(input("Escolha a categoria: "))
+                    break
+                except ValueError:
+                    print("Tem de ser um número inteiro, tente novamente!")
+                    continue
+            if 1 <= novo_dado <= len(Produto.categoria):
+                produto.Categoria_escolhida = Produto.categoria[novo_dado -1]
+        elif alterar_informacao == "subcategoria":
+            for i, subcategoria in enumerate(Produto.subcategorias, start=1):                    
+                print(f"{i}- {subcategoria}")
+            while True:         
+                try:   
+                    novo_dado = int(input("Escolha a categoria: "))
+                    if 1 <= novo_dado <= len(Produto.subcategorias):
+                        novo_dado.Subcategoria_escolhida = Produto.subcategorias[novo_dado -1]
+                    break
+                except ValueError:
+                    print("Tem de ser um número inteiro, tente novamente!")
+                    continue
+        elif alterar_informacao == "stock":
+            while True:
+                try:
+                    novo_dado = int(input("Novo stock: "))
+                    produto.Stock_produto = novo_dado
+                    break
+                except ValueError:
+                    print("O stock tem de ter um número inteiro! Tente novamente.")
+                    continue
+        elif alterar_informacao in ["preco", "preço"]:
+            while True:
+                try:
+                    novo_dado = float(input("Novo preço: "))
+                    produto.Preco_produto = novo_dado
+                    break
+                except ValueError:
+                    print("O preço tem de ser ou um número inteiro ou com casas decimais (5 ou 5.99).")            
+        else:
+            print("Opção inválida! Tente novamente.")
+            return
 
+        print("Os dados foram atualizados!")    
+     
+        ver_dados_produto=input("Deseja ver os dados atualizaddos do produto? (s/n) ").lower()
+        if ver_dados_produto == "s":
+            print("\n------ Produto atualizado ------")
+            print(f"ID: {produto.Id_produto}")
+            print(f"Nome da flor: {produto.Nome_produto}")
+            print(f"Categoria da flor: {produto.Categoria_escolhida}")
+            print("DEBUG ->", produto.Subcategoria_escolhida)
+            if produto.Subcategoria_escolhida:
+                print(f"Subcategoria da flor: {produto.Subcategoria_escolhida}")
+            else:
+                print("Não tem subcategoria.")
+            print(f"Informação do produto: {produto.Informacao_produto}")
+            print(f"Preço: {produto.Preco_produto} €")
+            print(f"Stock: {produto.Stock_produto}")
+            print("--------------------------------")
+
+    
+        editar_novamente = input("Gostava de editar outro produto? (s/n) ").lower()
+    
         if editar_novamente == "s":  
             self.editar_produto()
         elif editar_novamente == "n":
@@ -246,8 +275,6 @@ class Produto():
             print(f"O produto {produto.Nome_produto} da categoria {produto.Categoria_escolhida} foi removido com sucesso.")
         else:
             print(f"O produto {produto.Nome_produto} da categoria {produto.Categoria_escolhida} e com a subcategoria {produto.Subcategoria_escolhida} foi removido com sucesso.")
-        
-        
 
     """  
     def diminiuir_stock(self, quantidade):
@@ -258,7 +285,7 @@ class Produto():
             return False
     """
 
-produto1 = Produto("", "", "", "", "", "", "")
+produto1 = Produto("", "", "", "", "", "", "", "")
 produto1.adicionar_produto()
 produto1.editar_produto()
 produto1.mostrar_todos_produtos()

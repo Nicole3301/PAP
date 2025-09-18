@@ -123,7 +123,7 @@ class Cliente():
                             continue
                     else:
                         tentativas += 1
-                
+                        
                     
                     
 
@@ -254,7 +254,7 @@ class Cliente():
 
 cliente = Cliente("", "", "", "", "", "")
 cliente.adicionar_cliente()
-cliente.editar_dados_cliente()
+cliente.remover_cliente()
 
 
 
