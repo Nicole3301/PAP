@@ -9,20 +9,24 @@ conexao = psycopg2.connect(
 )
 
 
-# Open a cursor to perform database operations
+
 cursor = conexao.cursor()
-# Execute a command: create datacamp_courses table
-cursor.execute("""CREATE TABLE cliente(
-            id_cliente SERIAL PRIMARY KEY NOT NULL,
-            nome_cliente VARCHAR (200) NOT NULL,
-            contacto_cliente VARCHAR(9) NOT NULL CHECK (length(contacto_cliente) = 9),
-            email VARCHAR (200) NOT NULL,
-            morada TEXT NOT NULL,
-            genero VARCHAR(20) NOT NULL CHECK (genero IN ('Feminino', 'Masculino'))
+
+cursor.execute("""CREATE TABLE produto(
+            id_produto SERIAL PRIMARY KEY NOT NULL,
+            nome_produto VARCHAR (150) NOT NULL,
+            categoria_escolhida VARCHAR(9) NOT NULL,
+            subcategoria_escolhida VARCHAR (50) NOT NULL,
+            cor_produto VARCHAR(100) NOT NULL,
+            informacao_produto TEXT NOT NULL,
+            preco_produto DECIMAL NOT NULL,
+            stock_produto INTEGER NOT NULL
             );
 """)
-# Make the changes to the database persistent
+
 conexao.commit()
-# Close cursor and communication with the database
+
 cursor.close()
 conexao.close()
+
+
