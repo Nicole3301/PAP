@@ -1,10 +1,12 @@
 
 class Funcionario():
     lista_funcionarios = []
+    lista_genero = ["feminino", "masculino"]
     
-    def __init__(self, id_funcionario, nome_funcionario, funcao):
+    def __init__(self, id_funcionario, nome_funcionario, genero_funcionario, funcao):
         self.Id_funcionario = id_funcionario
         self.Nome_funcionario = nome_funcionario
+        self.Genero_funcionario = genero_funcionario
         self.Funcao = funcao
        
     contador_id_funcionario = 1
@@ -13,37 +15,50 @@ class Funcionario():
         Funcionario.contador_id_funcionario +=1
         
         nome_funcionario = input("Nome do funcionário: ").lower()
+        
+        for i, genero in enumerate(Funcionario.lista_genero, start=1):
+                print(f"{i}- {genero}")
+        while True: 
+            try:
+                escolha_genero = int(input("Insira o número do gênero: "))
+                break
+            except ValueError:
+                print("A escolha do gênero tem de ser com números inteiros, tente novamente!")
+                continue
+        genero_funcionario = Funcionario.lista_genero[escolha_genero-1]
                    
         funcao = input("Função: ").lower()
         
-        novo_funcionario = (id_funcionario, nome_funcionario, funcao)
+        novo_funcionario = Funcionario(id_funcionario, nome_funcionario, genero_funcionario, funcao)
         Funcionario.lista_funcionarios.append(novo_funcionario)
         
         while True:
-            ver_dados_funcionario = str(input("Deseja ver os dados do funcionário que adicionou? (s/n) ")).lower()
+            ver_dados = str(input("Deseja ver os dados do funcionário? (s/n) ")).lower()
             
-            if ver_dados_funcionario == "s":
-                self.mostrar_funcionarios()
-            elif ver_dados_funcionario == "n":
+            if ver_dados == "s":
+                print("---- Dados do Funcionário ----")
+                print(f"ID: {novo_funcionario.Id_funcionario}")
+                print(f"Nome: {novo_funcionario.Nome_funcionario}")
+                print(f"Gênero: {novo_funcionario.Genero_funcionario}")
+                print(f"Função: {novo_funcionario.Funcao}")
+                print("-----------------------------------")
+                break
+            elif ver_dados == "n":
                 break
             else:
-                print("Opção inválida, tente novamente!")
-                continue  
-            
-            
-            while True:
-                criar_outro_funcionario = str(input("Deseja criar outro funcionário? (s/n) ")).lower()     
-                if criar_outro_funcionario == "s":
-                    self.adicionar_funcionario()
-                    break
-                elif criar_outro_funcionario == "n":
-                    break
-                else:
-                    print("Opção inválida, tente novamente!")
-                    continue
-                    
+                print("Opção inválida! Use 's' ou 'n'. ") 
+                continue
+                 
+        editar_novamente = input("Gostava de editar outro produto? (s/n) ").lower()
+    
+        if editar_novamente == "s":  
+            self.editar_produto()
+        elif editar_novamente == "n":
+            return
+        else: 
+            print("Opção inválida! Use 's' ou 'n'. ")
                 
-    def mostrar_funcionarios(self):
+    def mostrar_dados_funcionarios(self):
         if not Funcionario.lista_funcionarios:
             print("Não existem clientes para mostrar.")
             return
@@ -51,18 +66,19 @@ class Funcionario():
         for funcionario in Funcionario.lista_funcionarios:
             print(f"ID: {funcionario.Id_funcionario}")
             print(f"Nome: {funcionario.Nome_funcionario}")
+            print(f"Gênero: {funcionario.Genero_funcionario}")
             print(f"Função: {funcionario.Funcao}")
             print("-----------------------------------")
 
     
             
     def editar_dados_funcionario(self):
-        funcionario_editar = input("Escreva o nome do funcionário que quer editar: ").lower()
+        procurar_funcionario_editar = input("Escreva o nome do funcionário que quer editar: ").lower()
         funcionarios_encontrados = []
         
         for funcionario in Funcionario.lista_funcionarios:
-            if funcionario_editar in Funcionario.lista_funcionarios:
-                funcionarios_encontrados.append(funcionario)
+            if procurar_funcionario_editar in funcionario.Nome_funcionario.lower():
+                funcionarios_encontrados.append(funcionario)    
         
         if not funcionarios_encontrados:
             print("Nenhum funcionário foi encontrado.")
@@ -71,7 +87,7 @@ class Funcionario():
 
         if len(funcionarios_encontrados) > 1:
             for i, funcionario in enumerate(funcionarios_encontrados, start=1):
-                print(f"{i}- {funcionario.Nome_funcionario} | Função: {funcionario.Funcao}")
+                print(f"{i}- {funcionario.Nome_funcionario} | Gênero:  {funcionario.Genero_funcionario} | Função: {funcionario.Funcao}")
             escolha_funcionario = int(input("Insira o número do funcionário que deseja editar? "))
             funcionario = funcionarios_encontrados[escolha_funcionario-1]
         else:
@@ -92,10 +108,10 @@ class Funcionario():
                     else:
                         print("Opção inválida, tente novamente!")
                         return
-            Funcionario.Nome_funcionario = novo_campo
+            funcionario.Nome_funcionario = novo_campo
         elif alterar_campo_funcionario in ["funcao", "função", "funçao", "funcão"]:
             novo_campo = input("Nova função: ").lower()
-            Funcionario.Funcao = novo_campo
+            funcionario.Funcao = novo_campo
         else:
             print("Opção inválida, tente novamente!")
             return
@@ -126,7 +142,7 @@ class Funcionario():
         
         if len(lista_funcionarios_encontrados) > 1:
             for i, funcionario in enumerate(lista_funcionarios_encontrados, start=1):
-                print(f"{i}- {funcionario.Nome_funcionario} | Função: {funcionario.Funcao}")
+                print(f"{i}- {funcionario.Nome_funcionario} | Gênero:  {funcionario.Genero_funcionario} | Função: {funcionario.Funcao}")
             while True:
                 try:
                     escolha_funcionario_remover = int(input("Insira o número do funcionário que deseja remover: "))
@@ -139,11 +155,13 @@ class Funcionario():
             funcionario = lista_funcionarios_encontrados[0]
         
         Funcionario.lista_funcionarios.remove(funcionario)
-        print(f"O funcionário com o id {Funcionario.Id_funcionario} com o nome {Funcionario.Nome_funcionario}  e a função {Funcionario.Funcao} foi removido com sucesso.")
+        print(f"O funcionário com o id {funcionario.Id_funcionario} com o nome {funcionario.Nome_funcionario}  e a função {funcionario.Funcao} foi removido com sucesso.")
         
-funcionario = Funcionario("", "", "")
+funcionario = Funcionario("", "", "", "")
 funcionario.adicionar_funcionario()
 funcionario.editar_dados_funcionario()
+funcionario.mostrar_dados_funcionarios()
+funcionario.remover_funcionario()
 
         
         

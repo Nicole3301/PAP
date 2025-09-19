@@ -41,7 +41,7 @@ class Cliente():
                 try:
                     escolha_genero = int(input("Insira o número do gênero: "))
                     break
-                except:
+                except ValueError:
                     print("A escolha do gênero tem de ser com números inteiros, tente novamente!")
                     continue
             genero = cliente.lista_genero[escolha_genero-1]
@@ -74,11 +74,13 @@ class Cliente():
                 criar_novamente = input("Gostava de adicionar outro cliente? s/n ").lower()
 
                 if criar_novamente == "s":  
+                    self.adicionar_cliente()
                     break
                 elif criar_novamente == "n":
                     return
                 else: 
                     print("Opção inválida! Use 's' ou 'n'. ")
+                    continue
 
 
     def mostrar_todos_clientes(self):
@@ -129,7 +131,7 @@ class Cliente():
 
             if len(clientes_encontrados) > 1:
                 for i, cliente in enumerate(clientes_encontrados, start=1):
-                    print(f"{i}- id: {cliente.Id_cliente} | nome: {cliente.Nome_cliente} | contacto: {cliente.Contacto_cliente}")
+                    print(f"{i}- Id: {cliente.Id_cliente} | Nome: {cliente.Nome_cliente} | Contacto: {cliente.Contacto_cliente} | Email: {cliente.Email} |Morada: {cliente.Morada} | Gênero: {cliente.Genero}")
                 escolha = int(input("Qual é que deseja editar? "))
                 cliente = clientes_encontrados[escolha-1]
             else:
@@ -168,9 +170,9 @@ class Cliente():
                         print("Escreveu o mesmo contacto, escreva outro se quer editar.")
                         editar_novamente = input("Deseja voltar a editar? (s/n) ").lower() 
                         if editar_novamente == "s":  
-                            continue
+                            return
                         elif editar_novamente == "n":
-                            break
+                            return
                         else: 
                             print("Opção inválida! Use 's' ou 'n'. ")
                             continue
@@ -241,7 +243,7 @@ class Cliente():
 
         if len(lista_clientes_encontrados) > 1:
             for i, cliente in enumerate(lista_clientes_encontrados, start=1):
-                print(f"{i}- id: {cliente.Id_cliente} | nome: {cliente.Nome_cliente} | contacto: {cliente.Contacto_cliente}")
+                print(f"{i}- Id: {cliente.Id_cliente} | Nome: {cliente.Nome_cliente} | Contacto: {cliente.Contacto_cliente} | Email: {cliente.Email} |Morada: {cliente.Morada} | Gênero: {cliente.Genero}")
             escolha = int(input("Qual deseja remover? "))
             cliente = lista_clientes_encontrados[escolha-1]
         else:
@@ -254,6 +256,7 @@ class Cliente():
 
 cliente = Cliente("", "", "", "", "", "")
 cliente.adicionar_cliente()
+cliente.editar_dados_cliente()
 cliente.remover_cliente()
 
 

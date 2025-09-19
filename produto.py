@@ -42,20 +42,17 @@ class Produto():
         escolha_categoria = int(input("Escolha a categoria: "))
         categoria_escolhida = Produto.categorias[escolha_categoria-1]
 
+
         pergunta_se_quer_subcategoria = input("Deseja uma subcategoria? (s/n) ").lower()
         if pergunta_se_quer_subcategoria == "s":
             for i, subcategoria in enumerate(Produto.subcategorias, start=1):
                 print(f"{i}- {subcategoria}")
-            while True:
-                try:
-                    
-                    escolha_subcategoria = int(input("Escolha a subcategoria: "))
-                    if 1 <= escolha_subcategoria <= len(Produto.subcategorias):
-                        produto.Subcategoria_escolhida = Produto.subcategorias[escolha_subcategoria-1]
-                    elif pergunta_se_quer_subcategoria == "n":
-                        novo_produto.Subcategoria_escolhida = None
-                    else:
-                        print("Opção inválida, tente novamente.")
+            escolha_subcategoria = int(input("Escolha a subcategoria: "))   
+            produto.Subcategoria_escolhida = Produto.subcategorias[escolha_subcategoria-1]
+        elif pergunta_se_quer_subcategoria == "n":
+            produto.Subcategoria_escolhida = None
+        else:
+            print("Opção inválida, tente novamente.")
             
             
         cor_produto = input("Cor do produto: ").lower()
@@ -78,8 +75,11 @@ class Produto():
                 print("Tem de ser um número inteiro ou com duas casas decimais (5 ou 5.99)! Tente novamente...")
                 continue
             
-        novo_produto = Produto(id_produto, nome_produto, categoria_escolhida, None, cor_produto, informacao_produto, preco_produto, stock_produto)
+        novo_produto = Produto(id_produto, nome_produto, categoria_escolhida, escolha_subcategoria, cor_produto, informacao_produto, preco_produto, stock_produto)
         Produto.lista_produtos.append(novo_produto)
+        
+        
+       
 
         while True:
                 ver_dados = str(input("Deseja ver os dados do produto? (s/n) ")).lower()
