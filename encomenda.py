@@ -32,6 +32,8 @@ class Encomenda():
         else:
             cliente = lista_clientes_encontrados[0]
             
+        data_criacao = input("")
+            
             
             
 

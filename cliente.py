@@ -10,7 +10,7 @@ class Cliente():
         self.Email = email
         self.Morada = morada
         self.Genero = genero
-        
+    
     contador_id = 1
     def adicionar_cliente(self):
         while True: 
@@ -44,7 +44,7 @@ class Cliente():
                 except ValueError:
                     print("A escolha do gênero tem de ser com números inteiros, tente novamente!")
                     continue
-            genero = cliente.lista_genero[escolha_genero-1]
+            genero = Cliente.lista_genero[escolha_genero-1]
             
 
                 
@@ -68,17 +68,18 @@ class Cliente():
                     break
                 else:
                     print("Opção inválida! Use 's' ou 'n'. ")
+                    continue
  
-                         
             while True:
-                criar_novamente = input("Gostava de adicionar outro cliente? s/n ").lower()
+                try:             
+                    criar_novamente = input("Gostava de adicionar outro cliente? s/n ").lower()
 
-                if criar_novamente == "s":  
-                    self.adicionar_cliente()
-                    break
-                elif criar_novamente == "n":
-                    return
-                else: 
+                    if criar_novamente == "s":  
+                        cliente.adicionar_cliente()
+                        break
+                    elif criar_novamente == "n":
+                        break
+                except ValueError: 
                     print("Opção inválida! Use 's' ou 'n'. ")
                     continue
 
